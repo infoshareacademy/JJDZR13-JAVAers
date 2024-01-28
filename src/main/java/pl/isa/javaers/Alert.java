@@ -10,12 +10,27 @@ public class Alert {
     private boolean higherOrLower;      //True for higher False for lower than course
 
     //
-    public int create(String aID, String uID, String cCode, float course, boolean hL) {
+    public int create(String alertID, String userID, String cCode, float course, boolean hL) {
         int errCode = 0;            //error code, 0 - means no error
+        this.alertID=alertID;
+        this.userID=userID;
+        this.currCode=cCode;
+        this.course=course;
+        this.higherOrLower=hL;
 
-        if(0 != User.checkID(uID)) return(USER_WRONGID);
+        if(0 != User.checkID(userID)) return(USER_WRONGID);
         if(0 != Assets.checkCurrencyCode(cCode)) return(ASSETS_WRONGCCODE);
 
         return(errCode);
     }
+
+    public String toString(){
+        String wartosc = String.valueOf(course);
+        System.out.println(wartosc);
+        System.out.println(course);
+
+    return "aID: "+alertID+" uID: "+userID+" cCode: "+currCode+(higherOrLower?">":"<")+" val: "+wartosc;
+    }
+
 }
+
