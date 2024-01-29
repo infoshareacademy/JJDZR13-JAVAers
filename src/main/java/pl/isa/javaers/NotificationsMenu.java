@@ -1,44 +1,19 @@
 package pl.isa.javaers;
+import java.util.List;
 
-import java.util.Scanner;
-
-public class NotificationsMenu {
-    private String[] notificationsMenu;
+public class NotificationsMenu extends Menu {
 
     public NotificationsMenu() {
-        this.notificationsMenu = new String[]{"Back to main menu", "Show current notifications"};
+        super("Notification Menu", List.of("Show current notifications"), false);
     }
 
-    public void display() {
-        System.out.println("Notifications");
-        for (int i = 0; i < notificationsMenu.length; i++) {
-            System.out.println((i + 1) + ". " + notificationsMenu[i]);
-        }
-    }
-
-    public void handleUserChoise(int choice) {
+    public void handleUserChoice(int choice) {
         switch (choice) {
-            case 1:
-                System.out.println("Back to main menu");
-                break;
             case 2:
-                System.out.println("Show current notifications.");
+                //tu wywołanie funkcji odpowiedniej dla tego wyboru
                 break;
             default:
                 System.out.println("Wrong option. Try again");
-        }
-    }
-
-    public void run() {
-        Scanner scanner = new Scanner(System.in);
-        while (true) {
-            display();
-            int choice = Integer.parseInt(scanner.nextLine());
-
-            handleUserChoise(choice);
-            if (choice == 1) {
-                break;
-            }
         }
     }
 }

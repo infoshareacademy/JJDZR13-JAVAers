@@ -1,46 +1,34 @@
 package pl.isa.javaers;
+import java.util.List;
 
-public class MainMenu {
-    private String[] mainOptions;
+public class MainMenu extends Menu {
     private UserAccountManagerMenu userAccountManagerMenu;
     private NotificationsMenu notificationsMenu;
     private NotificationsManagerMenu notificationsManagerMenu;
     private ExchangeRateHistoryMenu exchangeRateHistoryMenu;
 
-
-    public MainMenu(String[] mainOptions) {
-        this.mainOptions = mainOptions;
-        this.userAccountManagerMenu = new UserAccountManagerMenu();
-        this.exchangeRateHistoryMenu = new ExchangeRateHistoryMenu();
-        this.notificationsManagerMenu = new NotificationsManagerMenu();
-        this.notificationsMenu = new NotificationsMenu();
-    }
-
-    public void display() {
-        System.out.println("Main Menu:");
-        System.out.println("Choose sub menu by typing number.");
-        for (int i = 0; i < mainOptions.length; i++) {
-            System.out.println((i + 1) + ". " + mainOptions[i]);
-        }
+    public MainMenu() {
+        super("main Menu", List.of("User Account Manager", "Notifications", "Notification Manager", "Exchange Rate History"), true);
+        userAccountManagerMenu = new UserAccountManagerMenu();
+        exchangeRateHistoryMenu = new ExchangeRateHistoryMenu();
+        notificationsManagerMenu = new NotificationsManagerMenu();
+        notificationsMenu = new NotificationsMenu();
     }
 
     public void handleUserChoice(int choice) {
         switch (choice) {
             case 1:
-                userAccountManagerMenu.run();
+                userAccountManagerMenu.runMenu();
                 break;
             case 2:
-                notificationsMenu.run();
+                notificationsMenu.runMenu();
                 break;
             case 3:
-                notificationsManagerMenu.run();
+                notificationsManagerMenu.runMenu();
                 break;
             case 4:
-                exchangeRateHistoryMenu.run();
+                exchangeRateHistoryMenu.runMenu();
                 break;
-            case 5:
-                System.out.println("Good bye.");
-                System.exit(0);
             default:
                 System.out.println("Wrong choice. Try again.");
         }
