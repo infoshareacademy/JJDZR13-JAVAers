@@ -8,6 +8,8 @@ public class GeneratorAlertID {
     public static void generatorAlertID() {
         UUID uuid = UUID.randomUUID();
         alertID = String.valueOf(uuid);
+    }
+    public static void showAlertID(){
         System.out.println(alertID);
     }
 }
