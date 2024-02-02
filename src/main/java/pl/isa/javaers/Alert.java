@@ -32,5 +32,36 @@ public class Alert {
     return "aID: "+alertID+" uID: "+userID+" cCode: "+currCode+(higherOrLower?">":"<")+" val: "+wartosc;
     }
 
+    public String getAlertID() {
+        return alertID;
+    }
+
+    public void setAlertID(String alertID) {
+        this.alertID = alertID;
+    }
+
+    public String getUserID() {
+        return userID;
+    }
+
+    public void setUserID(String userID) {
+        this.userID = userID;
+    }
+
+    public String getCurrCode() {
+        return currCode;
+    }
+
+    public void setCurrCode(String currCode) {
+        this.currCode = currCode;
+    }
+
+    public float getCourse() {
+        return course;
+    }
+
+    public void setCourse(float course) {
+        this.course = course;
+    }
 }
 
