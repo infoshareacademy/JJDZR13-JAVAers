@@ -19,7 +19,6 @@ public class Alert {
     private float course;               // value ie. 16,5643 (four places after comma)
     private boolean higherOrLower;      //True for higher False for lower than course
 
-
     public Alert(String userID, String currCode, float course, boolean higherOrLower) {
         this.alertID = GeneratorAlertID.generatorAlertID();
         this.userID = userID;
@@ -49,6 +48,45 @@ public class Alert {
                 '}';
     }
 
+    public String getAlertID() {
+        return alertID;
+    }
+
+    public void setAlertID(String alertID) {
+        this.alertID = alertID;
+    }
+
+    public String getUserID() {
+        return userID;
+    }
+
+    public void setUserID(String userID) {
+        this.userID = userID;
+    }
+
+    public String getCurrCode() {
+        return currCode;
+    }
+
+    public void setCurrCode(String currCode) {
+        this.currCode = currCode;
+    }
+
+    public float getCourse() {
+        return course;
+    }
+
+    public void setCourse(float course) {
+        this.course = course;
+    }
+
+    public boolean isHigherOrLower() {
+        return higherOrLower;
+    }
+
+    public void setHigherOrLower(boolean higherOrLower) {
+        this.higherOrLower = higherOrLower;
+    }
 
     //
     public int create(String userID, String cCode, float course, boolean hL) {

@@ -17,7 +17,7 @@ import java.util.List;
 import static pl.isa.javaers.ErrorCodes.ASSETS_WRONGCCODE;
 
 public class Alerts {
-        public static ArrayList<Alert> alerts = new ArrayList<>();
+        public static List<Alert> alerts = new ArrayList<>();
 
 
         public void loadAlerts() {
@@ -32,7 +32,7 @@ public class Alerts {
                 //Alert[] alerts2 = objectMapper.readValue(new File("src/main/resources/alerts1.json"), Alert.class);
 
                 //ArrayList<Alert> alerts = objectMapper.readValue(new File("src/main/resources/alerts2.json"), new TypeReference<ArrayList<Alert>>(){});
-                alerts = objectMapper.readValue(new File("src/main/resources/alerts1.json"), ArrayList.class);
+                alerts.addAll(Arrays.asList(objectMapper.readValue(new File("src/main/resources/alerts1.json"), Alert[].class)));
                 System.out.println("alertstmp : " + alerts);
             } catch (IOException e) {
                 throw new RuntimeException(e);
@@ -62,12 +62,12 @@ public class Alerts {
 
                 // A jednoczesnie - działa jego uproszczona wersja poniżej :
 
-                String jsonAlertsArray = "[" + mapper.writeValueAsString(alerts.get(0));
+//                String jsonAlertsArray = "[" + mapper.writeValueAsString(alerts.get(0));
                 //jsonAlertsArray += "," + mapper.writeValueAsString(alerts.get(1));
                 //jsonAlertsArray += "," + mapper.writeValueAsString(alerts.get(2));
-                jsonAlertsArray += "," + mapper.writeValueAsString(alerts.get(1))+ "]";
-                System.out.println("jsonAlertsArray : " + jsonAlertsArray);
-                mapper.writeValue(new File("src/main/resources/alerts10.json"),jsonAlertsArray);
+//                jsonAlertsArray += "," + mapper.writeValueAsString(alerts.get(1))+ "]";
+//                System.out.println("jsonAlertsArray : " + jsonAlertsArray);
+                mapper.writeValue(new File("src/main/resources/alerts10.json"), alerts);
                 System.out.println("Alerty zapisane do pliku alerts10.json");
 
                 // Nie rozumiem dlaczego nie można tego wszystkiego zrobić tak jak w linii poniżej:
