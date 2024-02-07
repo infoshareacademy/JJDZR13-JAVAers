@@ -5,5 +5,6 @@ public class Main {
     public static void main(String[] args) {
         Assets.loadAssets();
         DailyAlertChecker.dailyAlertCheckerFileSaver(true);
+        new MainMenu().runMenu();
     }
 }
