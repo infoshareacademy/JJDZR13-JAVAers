@@ -21,5 +21,14 @@ public class Main {
         alerts.showAlerts();
         alerts.saveAlerts();
 
+<<<<<<< Updated upstream
+=======
+        tmpAlerts = alerts.getUserAlerts("user3");
+        UI.showAlerts(tmpAlerts, "user3");
+        System.out.println("Alerty użytkownika user3 : " + tmpAlerts);
+
+        UI.newAlert("user4");
+
+>>>>>>> Stashed changes
     }
 }
