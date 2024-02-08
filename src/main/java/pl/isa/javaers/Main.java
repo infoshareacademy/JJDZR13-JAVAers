@@ -1,5 +1,7 @@
 package pl.isa.javaers;
 
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
         Assets.loadAssets();
@@ -15,11 +17,12 @@ public class Main {
         alerts.loadAlerts();
         alerts.showAlerts();
         alerts.addToAlerts(new Alert("user2", "USD", 3.9f, false));
-        alerts.addToAlerts(new Alert("user2", "EUR", 4.2f, false));
-        alerts.addToAlerts(new Alert("user3", "CHF", 4.4f, false));
-        alerts.addToAlerts(new Alert("user3", "SEK", 3.9f, true));
-        alerts.showAlerts();
+//        alerts.addToAlerts(new Alert("user2", "EUR", 4.2f, false));
+//        alerts.addToAlerts(new Alert("user3", "CHF", 4.4f, false));
+//        alerts.addToAlerts(new Alert("user3", "SEK", 3.9f, true));
+//        alerts.showAlerts();
         alerts.saveAlerts();
+        alerts.deleteAlert();
 
     }
 }
