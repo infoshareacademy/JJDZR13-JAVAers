@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static pl.isa.javaers.Settings.ALERTS_FILE;
 
@@ -23,11 +22,10 @@ public class Alerts {
             throw new RuntimeException(e);
         }
     }
-    public void saveAlerts(){
+    public static void saveAlerts(){
         try {
             ObjectMapper mapper = new ObjectMapper();
             mapper.writeValue(new File(ALERTS_FILE), alerts);
-            System.out.println("Alerty zapisane do pliku " + ALERTS_FILE);
         } catch (IOException e) { throw new RuntimeException(e);}
     }
 
@@ -39,8 +37,7 @@ public class Alerts {
         return tmpAlerts;
     }
 
-    public int addToAlerts(Alert alert) {
-        System.out.println("Dodajemy alert : " + alert.toString());
+    public static int addToAlerts(Alert alert) {
         int result = Assets.checkCurrencyCode(alert.getCurrCode());
         if (result == 0) alerts.add(alert);
         return result;

@@ -88,33 +88,6 @@ public class Alert {
         this.higherOrLower = higherOrLower;
     }
 
-    //
-    public int create(String userID, String cCode, float course, boolean hL) {
-        int errCode = 0;            //error code, 0 - means no error, alert created
-        this.userID=userID;
-        this.currCode=cCode;
-        this.course=course;
-        this.higherOrLower=hL;
-
-        if(0 != User.checkID(userID)) return(USER_WRONGID);
-        if(0 != Assets.checkCurrencyCode(cCode)) return(ASSETS_WRONGCCODE);
-
-        Alert alert = new Alert(userID,cCode,course,hL);
-        System.out.println(alert.toString());
-
-        try {
-            ObjectMapper objectMapper = new ObjectMapper();
-            //bez poniższej komendy - objectMapper nie ma dostępu do prywatnych pól obiektu alert i mamy RunTime Err
-            objectMapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
-            //objectMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
-            objectMapper.writeValue(new File("src/main/resources/alerts.json"),alert);
-
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        return(errCode);
-    }
 
 }
 
