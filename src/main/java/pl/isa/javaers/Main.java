@@ -2,7 +2,7 @@ package pl.isa.javaers;
 
 public class Main {
     public static void main(String[] args) {
-        GeneratorAlertID.generatorAlertID();
-        GeneratorAlertID.showAlertID();
+        Assets.loadAssets();
+        new MainMenu().runMenu();
     }
 }
