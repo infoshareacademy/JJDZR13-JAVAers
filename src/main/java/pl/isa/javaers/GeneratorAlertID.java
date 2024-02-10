@@ -14,4 +14,3 @@ public class GeneratorAlertID {
         System.out.println(alertID);
     }
 }
-

@@ -19,20 +19,17 @@ public class Alert {
     private float course;               // value ie. 16,5643 (four places after comma)
     private boolean higherOrLower;      //True for higher False for lower than course
 
-    public Alert(String userID, String currCode, float course, boolean higherOrLower) {
-        this.alertID = GeneratorAlertID.generatorAlertID();
-        this.userID = userID;
-        this.currCode = currCode;
-        this.course = course;
-        this.higherOrLower = higherOrLower;
-    }
-    public Alert(String alertID, String userID, String currCode, float course, boolean higherOrLower) {
-        this.alertID = alertID;
-        this.userID = userID;
-        this.currCode = currCode;
-        this.course = course;
-        this.higherOrLower = higherOrLower;
-    }
+    //
+    public int create(String alertID, String userID, String cCode, float course, boolean hL) {
+        int errCode = 0;            //error code, 0 - means no error
+        this.alertID=alertID;
+        this.userID=userID;
+        this.currCode=cCode;
+        this.course=course;
+        this.higherOrLower=hL;
+
+        if(0 != User.checkID(userID)) return(USER_WRONGID);
+        if(0 != Assets.checkCurrencyCode(cCode)) return(ASSETS_WRONGCCODE);
 
     public Alert() {
     }
@@ -89,5 +86,36 @@ public class Alert {
     }
 
 
+    public String getAlertID() {
+        return alertID;
+    }
+
+    public void setAlertID(String alertID) {
+        this.alertID = alertID;
+    }
+
+    public String getUserID() {
+        return userID;
+    }
+
+    public void setUserID(String userID) {
+        this.userID = userID;
+    }
+
+    public String getCurrCode() {
+        return currCode;
+    }
+
+    public void setCurrCode(String currCode) {
+        this.currCode = currCode;
+    }
+
+    public float getCourse() {
+        return course;
+    }
+
+    public void setCourse(float course) {
+        this.course = course;
+    }
 }
 
