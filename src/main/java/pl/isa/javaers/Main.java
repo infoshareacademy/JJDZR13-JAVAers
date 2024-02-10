@@ -13,7 +13,7 @@ public class Main {
         List<Alert> tmpAlerts = new ArrayList<>();
         Assets.loadAssets();
         DailyAlertChecker.dailyAlertCheckerFileSaver();
-        new MainMenu().runMenu();
+        //new MainMenu().runMenu();
         alerts = new Alerts();
         alerts.loadAlerts();
         new MainMenu().runMenu();
