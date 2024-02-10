@@ -39,13 +39,13 @@ public class UI {
 
         //tu kod do sprawdzenia czy userID istnieje - jeśli nie - to komunikat o błędzie i wyjście
 
-        System.out.println("\n\rWprowadź dane nowego alertu dla użytkownika " + userID + ":\n\r--------------------------------");
+        System.out.println("\n\rDefine new alert/notification fo user " + userID + ":\n\r--------------------------------");
         System.out.println("Enter currency code (3 characters) : ");
         //int choice = Integer.parseInt(uiscanner.nextLine());
         String currCode = uiscanner.nextLine();
         res=Assets.checkCurrencyCode(currCode);
         if(res!=0) {
-            System.out.println("Niepoprawny kod waluty " + currCode + ". Wychodze do poprzedniego menu");
+            System.out.println("Improper currency code " + currCode + ". Returning to the upper menu.");
             return;
         }
 
