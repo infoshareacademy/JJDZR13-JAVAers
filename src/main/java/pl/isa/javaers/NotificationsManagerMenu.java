@@ -1,5 +1,8 @@
 package pl.isa.javaers;
+import java.util.ArrayList;
 import java.util.List;
+
+import static pl.isa.javaers.Alerts.alerts;
 
 public class NotificationsManagerMenu extends Menu {
 
@@ -9,13 +12,17 @@ public class NotificationsManagerMenu extends Menu {
 
     public void handleUserChoice(int choice) {
         switch (choice) {
-            case 2:
+            case 1:
+                UI.newAlert(Main.user);
                 //tu wywołanie funkcji odpowiedniej dla tego wyboru
+                break;
+            case 2:
+                List<Alert> tmpAlerts = new ArrayList<>();
+                tmpAlerts = Main.alerts.getUserAlerts(Main.user);
+                //UI.showAlerts(tmpAlerts, Main.user);
+                UI.removeAlert(tmpAlerts,Main.user);
                 break;
             case 3:
-                //tu wywołanie funkcji odpowiedniej dla tego wyboru
-                break;
-            case 4:
                 //tu wywołanie funkcji odpowiedniej dla tego wyboru
                 break;
             default:

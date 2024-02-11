@@ -1,5 +1,15 @@
 package pl.isa.javaers;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.PropertyAccessor;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 import static pl.isa.javaers.ErrorCodes.*;
 
 public class Alert {
@@ -9,27 +19,33 @@ public class Alert {
     private float course;               // value ie. 16,5643 (four places after comma)
     private boolean higherOrLower;      //True for higher False for lower than course
 
-    //
-    public int create(String alertID, String userID, String cCode, float course, boolean hL) {
-        int errCode = 0;            //error code, 0 - means no error
-        this.alertID=alertID;
-        this.userID=userID;
-        this.currCode=cCode;
-        this.course=course;
-        this.higherOrLower=hL;
-
-        if(0 != User.checkID(userID)) return(USER_WRONGID);
-        if(0 != Assets.checkCurrencyCode(cCode)) return(ASSETS_WRONGCCODE);
-
-        return(errCode);
+    public Alert(String userID, String currCode, float course, boolean higherOrLower) {
+        this.alertID = GeneratorAlertID.generatorAlertID();
+        this.userID = userID;
+        this.currCode = currCode;
+        this.course = course;
+        this.higherOrLower = higherOrLower;
+    }
+    public Alert(String alertID, String userID, String currCode, float course, boolean higherOrLower) {
+        this.alertID = alertID;
+        this.userID = userID;
+        this.currCode = currCode;
+        this.course = course;
+        this.higherOrLower = higherOrLower;
     }
 
-    public String toString(){
-        String wartosc = String.valueOf(course);
-        System.out.println(wartosc);
-        System.out.println(course);
+    public Alert() {
+    }
 
-    return "aID: "+alertID+" uID: "+userID+" cCode: "+currCode+(higherOrLower?">":"<")+" val: "+wartosc;
+    @Override
+    public String toString() {
+        return "Alert{" +
+                "alertID='" + alertID + '\'' +
+                ", userID='" + userID + '\'' +
+                ", currCode='" + currCode + '\'' +
+                ", course=" + course +
+                ", higherOrLower=" + higherOrLower +
+                '}';
     }
 
     public String getAlertID() {
@@ -63,5 +79,15 @@ public class Alert {
     public void setCourse(float course) {
         this.course = course;
     }
+
+    public boolean isHigherOrLower() {
+        return higherOrLower;
+    }
+
+    public void setHigherOrLower(boolean higherOrLower) {
+        this.higherOrLower = higherOrLower;
+    }
+
+
 }
 

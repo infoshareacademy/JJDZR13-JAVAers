@@ -1,5 +1,8 @@
 package pl.isa.javaers;
+import java.util.ArrayList;
 import java.util.List;
+
+import static pl.isa.javaers.Alerts.alerts;
 
 public class NotificationsMenu extends Menu {
 
@@ -9,8 +12,10 @@ public class NotificationsMenu extends Menu {
 
     public void handleUserChoice(int choice) {
         switch (choice) {
-            case 2:
-                //tu wywołanie funkcji odpowiedniej dla tego wyboru
+            case 1:
+                List<Alert> tmpAlerts = new ArrayList<>();
+                tmpAlerts = Main.alerts.getUserAlerts(Main.user);
+                UI.showAlerts(tmpAlerts, Main.user);
                 break;
             default:
                 System.out.println("Wrong option. Try again");
