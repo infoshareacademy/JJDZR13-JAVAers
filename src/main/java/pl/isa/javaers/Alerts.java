@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static pl.isa.javaers.ErrorCodes.ALERT_REMOVAL_ERR;
 import static pl.isa.javaers.Settings.ALERTS_FILE;
 
 public class Alerts {
@@ -40,6 +41,12 @@ public class Alerts {
     public static int addToAlerts(Alert alert) {
         int result = Assets.checkCurrencyCode(alert.getCurrCode());
         if (result == 0) alerts.add(alert);
+        return result;
+    }
+
+    public static int removeFromAlerts(Alert a){
+        int result=ALERT_REMOVAL_ERR;
+        if (alerts.remove(a)) result=0;
         return result;
     }
     //check if the Asset's code is supported by the Application

@@ -17,7 +17,10 @@ public class NotificationsManagerMenu extends Menu {
                 //tu wywołanie funkcji odpowiedniej dla tego wyboru
                 break;
             case 2:
-                //tu wywołanie funkcji odpowiedniej dla tego wyboru
+                List<Alert> tmpAlerts = new ArrayList<>();
+                tmpAlerts = Main.alerts.getUserAlerts(Main.user);
+                //UI.showAlerts(tmpAlerts, Main.user);
+                UI.removeAlert(tmpAlerts,Main.user);
                 break;
             case 3:
                 //tu wywołanie funkcji odpowiedniej dla tego wyboru
