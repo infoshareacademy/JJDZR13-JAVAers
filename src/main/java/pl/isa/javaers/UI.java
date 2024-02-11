@@ -141,7 +141,7 @@ public class UI {
             System.out.println("Your choice : " + choice + ". Going back to upper menu level without any removal");
             return;
         }
-        alert = alertList.get(i-1);
+        alert = alertList.get(choice-1);
         System.out.println("your choice : " + choice + ". The following alert has been chosen for removal : ");
         System.out.println(alert.toString());
 
