@@ -171,4 +171,7 @@ public class UI {
             }
         }
     }
+    public static void notificationChanger(List<Alert> alertList, String userID){
+
+    }
 }

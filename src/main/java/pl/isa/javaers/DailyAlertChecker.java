@@ -32,7 +32,7 @@ public class DailyAlertChecker {
 
     public static void dailyAlertCheckerFileSaver() {                                   //metoda zapisująca wynik sprawdzenia alertów do pliku
         Date saveFilaDate = Date.valueOf(LocalDate.now());
-        File dailyAlertFile = new File("DailyAlertChecker.txt");
+        File dailyAlertFile = new File(Settings.ALERT_CHECKER_FILE);
         FileWriter fileWriter = null;
         if (isAlertConditionFulfilled) {
             try {

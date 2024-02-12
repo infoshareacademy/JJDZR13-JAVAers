@@ -10,4 +10,33 @@ public class Asset {
         FullName = fullName;
         Value = val;
     }
+
+    public String getShortName() {
+        return ShortName;
+    }
+
+    public void setShortName(String shortName) {
+        ShortName = shortName;
+    }
+
+    public String getFullName() {
+        return FullName;
+    }
+
+    public void setFullName(String fullName) {
+        FullName = fullName;
+    }
+
+    public float getValue() {
+        return Value;
+    }
+
+    public void setValue(float value) {
+        Value = value;
+    }
+
+    public Asset(String shortName, String fullName){
+        ShortName = shortName;
+        FullName = fullName;
+    }
 }
