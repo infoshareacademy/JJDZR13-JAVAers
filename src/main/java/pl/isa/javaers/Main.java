@@ -2,18 +2,19 @@ package pl.isa.javaers;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class Main {
     public static String user = "user3";
     public static Alerts alerts;
+    public static Assets assets;
 
     public static void main(String[] args) {
 
-        List<Alert> tmpAlerts = new ArrayList<>();
-        Assets.loadAssets();
-        DailyAlertChecker.dailyAlertCheckerFileSaver();
-        //new MainMenu().runMenu();
+        HashMap<String, Assets> temporaryAssets = new HashMap<>();
+        assets = new Assets();
+        assets.getAllAssets();
         alerts = new Alerts();
         alerts.loadAlerts();
         new MainMenu().runMenu();

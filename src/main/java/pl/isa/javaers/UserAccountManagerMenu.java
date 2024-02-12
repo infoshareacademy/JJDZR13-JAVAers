@@ -1,4 +1,5 @@
 package pl.isa.javaers;
+
 import java.util.List;
 
 public class UserAccountManagerMenu extends Menu {
@@ -8,15 +9,14 @@ public class UserAccountManagerMenu extends Menu {
     }
 
     public void handleUserChoice(int choice) {
-        System.out.println(options.get(choice - 1));
         switch (choice) {
+            case 1:
+                //tu wywołanie funkcji odpowiedniej dla tego wyboru
+                break;
             case 2:
                 //tu wywołanie funkcji odpowiedniej dla tego wyboru
                 break;
             case 3:
-                //tu wywołanie funkcji odpowiedniej dla tego wyboru
-                break;
-            case 4:
                 //tu wywołanie funkcji odpowiedniej dla tego wyboru
                 break;
             default:
