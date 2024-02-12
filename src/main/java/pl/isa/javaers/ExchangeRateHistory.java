@@ -70,11 +70,13 @@ public class ExchangeRateHistory {
             ObjectMapper objectMapper = new ObjectMapper();
             KursNBP kursCurrCode = objectMapper.readValue(data, KursNBP.class);
             String ratesAsString = objectMapper.writeValueAsString(data);
+            //// TODO: 12.02.2024  fix getting rates
             ratesAsString.toString();
             System.out.println(ratesAsString);
 //            System.out.println(kursCurrCode.getRates().stream().collect(Collectors.toList()));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        //// TODO: 12.02.2024 add date validator to method
     }
 }
