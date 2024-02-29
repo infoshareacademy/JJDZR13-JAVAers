@@ -1,10 +1,8 @@
 package pl.isa.javaers;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import java.util.List;
 
-public class KursNBP {
+public class Rates {
 //    "table": "A",
 //            "currency": "lew (Bułgaria)",
 //            "code": "BGN",
@@ -15,6 +13,11 @@ public class KursNBP {
     private String code;
     private List<Rate> rates;
 
+    @Override
+    public String toString(){
+        return "Rates for: " +
+                getCode();
+    }
     public String getTable() {
         return table;
     }

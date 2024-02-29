@@ -9,9 +9,9 @@ import java.util.Formatter;
 import java.util.Scanner;
 
 public class DailyAlertChecker {
-    private String kursNBP = new KursNBP().getTable();                                                           // dane z pliku json pobrane do porównania
+    private String kursNBP = new Rates().getTable();                                                           // dane z pliku json pobrane do porównania
     private String rateEffectiveDate = String.valueOf(new Rate().getEffectiveDate());
-    private String rateCurrency = new KursNBP().getCode();
+    private String rateCurrency = new Rates().getCode();
     private float rateCourse = new Rate().getMid();//String.valueOf(new Rate().getMid());
     private String alertID = String.valueOf(new Alert().getAlertID());                                          // dane z alertu ustawionego przez uzytkownika pobrane do porownania
     private float userCourse = new Alert().getCourse();  //String.valueOf(new Alert().getCourse());

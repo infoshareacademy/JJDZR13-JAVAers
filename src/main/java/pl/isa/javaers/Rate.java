@@ -8,6 +8,21 @@ public class Rate {
     private String effectiveDate;
     private float mid;
 
+    public Rate() {
+    }
+
+    public Rate(String no, String effectiveDate, float mid) {
+        this.no = no;
+        this.effectiveDate = effectiveDate;
+        this.mid = mid;
+    }
+
+    @Override
+    public String toString(){
+        return "Rate{ "+
+                "Date: " + getEffectiveDate() + '\'' +
+                "Mid rate " + getMid()+ '\'';
+    }
     public String getNo() {
         return no;
     }

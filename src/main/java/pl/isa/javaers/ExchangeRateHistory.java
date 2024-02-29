@@ -1,17 +1,14 @@
 package pl.isa.javaers;
 
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
-import java.util.HashMap;
-import java.util.Scanner;
-import java.util.stream.Collectors;
+import java.util.*;
+import java.util.function.Predicate;
 
 public class ExchangeRateHistory {
     private static Scanner uIScanner = new Scanner(System.in);
@@ -20,6 +17,7 @@ public class ExchangeRateHistory {
     private int userTime;
     private LocalDate startDate;
     private LocalDate endDate;
+
 
 
     public static void showRateHistory(HashMap<String, Asset> assetsHashMap, LocalDate startDate, LocalDate endDate) {
@@ -66,17 +64,38 @@ public class ExchangeRateHistory {
         }
         System.out.println("Your Currency is: " + currCode + " " + temporaryAssets.get(currCode).getFullName() + " And set dates are: " + startDate + " to: " + endDate);
         try {
-            byte[] data = Files.readAllBytes(Paths.get("src/main/resources/KursyNBP/"+currCode+".json"));
+            byte[] data = Files.readAllBytes(Paths.get("src/main/resources/KursyNBP/" + currCode + ".json"));
             ObjectMapper objectMapper = new ObjectMapper();
-            KursNBP kursCurrCode = objectMapper.readValue(data, KursNBP.class);
-            String ratesAsString = objectMapper.writeValueAsString(data);
+            Rates kursCurrCode = objectMapper.readValue(data, Rates.class);
+
+
+
+            System.out.println(kursCurrCode.toString() + kursCurrCode.getRates().toString());
+
+
+
             //// TODO: 12.02.2024  fix getting rates
-            ratesAsString.toString();
-            System.out.println(ratesAsString);
+
+
+//            ratesAsString.toString();
+//            System.out.println(ratesAsString);
 //            System.out.println(kursCurrCode.getRates().stream().collect(Collectors.toList()));
+//            kursCurrCode.getRates().stream().collect(Collectors.toList());
+//            List<Rate> ratesListFromString = objectMapper.readValue(ratesAsString, new TypeReference<List<Rate>>() {
+//                @Override
+//                public String toString() {
+//                    return super.toString();
+//                }
+//            });
+//            System.out.println(kursCurrCode.getRates().stream().toString());
+//
+//            List<Rate> rateList = new ArrayList<>();
+//            System.out.printf("", kursCurrCode.getRates().addAll(rateList));
+//            rateList.forEach(System.out::println);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
         //// TODO: 12.02.2024 add date validator to method
     }
+
 }
