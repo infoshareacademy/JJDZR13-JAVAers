@@ -1,28 +1,32 @@
 package pl.isa.javaers;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 public class Rate {
-//      "no": "001/A/NBP/2023",
+    //      "no": "001/A/NBP/2023",
 //              "effectiveDate": "2023-01-02",
 //              "mid": 2.3920
     private String no;
     private String effectiveDate;
     private float mid;
 
-    public Rate() {
-    }
-
-    public Rate(String no, String effectiveDate, float mid) {
-        this.no = no;
-        this.effectiveDate = effectiveDate;
-        this.mid = mid;
-    }
 
     @Override
-    public String toString(){
-        return "Rate{ "+
+    public String toString() {
+        return "Rate{ " +
                 "Date: " + getEffectiveDate() + '\'' +
-                "Mid rate " + getMid()+ '\'';
+                "Mid rate " + getMid() + '\'';
     }
+
     public String getNo() {
         return no;
     }
@@ -35,15 +39,4 @@ public class Rate {
         return mid;
     }
 
-    public void setNo(String no) {
-        this.no = no;
-    }
-
-    public void setEffectiveDate(String effectiveDate) {
-        this.effectiveDate = effectiveDate;
-    }
-
-    public void setMid(float mid) {
-        this.mid = mid;
-    }
 }

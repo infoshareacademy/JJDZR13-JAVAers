@@ -13,6 +13,7 @@ public class Main {
     public static void main(String[] args) {
 
         HashMap<String, Assets> temporaryAssets = new HashMap<>();
+        List<Rates> ratesList = new ArrayList<>();
         assets = new Assets();
         assets.getAllAssets();
         alerts = new Alerts();
