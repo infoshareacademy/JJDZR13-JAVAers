@@ -1,11 +1,5 @@
 package pl.isa.javaers;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.*;
@@ -19,7 +13,7 @@ public class ExchangeRateHistory {
     private int userTime;
     private LocalDate startDate;
     private LocalDate endDate;
-    private static List<Predicate<Rate>> rateHistoryList;
+    private static HashMap<Rates, Rate> rateHistoryList;
 
 
     public static String showRateHistory(HashMap<String, Asset> assetsHashMap, LocalDate startDate, LocalDate endDate) {
@@ -49,7 +43,7 @@ public class ExchangeRateHistory {
                 validInput = true;
             } catch (DateTimeParseException dateTimeParseException) {
                 System.out.println("Invalid date format. Please try again a valid format");
-                uIScanner.nextLine();
+//                uIScanner.nextLine();
 
             }
         }
@@ -61,29 +55,18 @@ public class ExchangeRateHistory {
                 validInput = true; // If no exception is thrown, input is valid
             } catch (DateTimeParseException dateTimeParseException) {
                 System.out.println("Invalid date format. Please try again a valid format");
-                uIScanner.nextLine();
+//                uIScanner.nextLine();
             }
         }
         System.out.println("Your Currency is: " + currCode + " " + temporaryAssets.get(currCode).getFullName() + " And set dates are: " + startDate + " to: " + endDate);
 //
 
 
-        try {
-//            byte[] data = Files.readAllBytes(Paths.get("src/main/resources/KursyNBP/" + currCode + ".json"));
-//            ObjectMapper objectMapper = new ObjectMapper();
-//            objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-////            Rate kursCurrCode = objectMapper.readValue(data, Rate.class);
-//            List<Rate> ratesForHistoryViev = Arrays.asList(objectMapper.readValue(data, Rate.class));
-
-            List<Rates> rateForHistoryView = Arrays.asList((Rates) Rates.getListOfRatesFromJSON(currCode));
-            LocalDate finalStartDate = startDate;
-            Predicate<Rates> ratesEffectveDatePredicate = a ->  a.getEffectiveDate().equals(finalStartDate);
-
-//            System.out.println(kursCurrCode.toString() + kursCurrCode.getRates().toString());
-
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+//        RatesParser.getListOfRatesFromJSON(currCode);
+        rateHistoryList = RatesParser.getListOfRatesFromJSON(currCode);
+//        LocalDate finalStartDate = startDate;
+//        Predicate<Rate> affectiveDatePredicate = a -> a.getEffectiveDate().equals(finalStartDate);
+//        List<Rate> filteredRateHistoryList = rateHistoryList.stream().filter(affectiveDatePredicate).collect(Collectors.toList());
         return rateHistoryList.toString();
 
         //// TODO: 12.02.2024  fix getting rates

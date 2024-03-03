@@ -22,24 +22,17 @@ public class Rates {
     private String code;
     private static List<Rates> rates;
 
-    private static List<Rates> ratesFromJSON;
+    public Rates() {
+    }
 
-    @JsonIgnoreProperties(ignoreUnknown = true)
-    public static List<Rates> getListOfRatesFromJSON(String currCode) {
-
-        try {
-            byte[] data = Files.readAllBytes(Paths.get("src/main/resources/KursyNBP/" + currCode + ".json"));
-            ObjectMapper objectMapper = new ObjectMapper();
-            objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-            rates = Collections.singletonList(objectMapper.readValue(data, Rates.class));
-            return rates;
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+    public Rates(String table, String currency, String code) {
+        this.table = table;
+        this.currency = currency;
+        this.code = code;
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return "Rates for: " +
                 getCode();
     }
@@ -56,7 +49,7 @@ public class Rates {
         return code;
     }
 
-//    public List<Rates> getRates() {
-//        return rates;
-//    }
+    public List<Rates> getRates() {
+        return rates;
+    }
 }
