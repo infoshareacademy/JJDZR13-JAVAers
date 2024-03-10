@@ -1,0 +1,37 @@
+/*  zmienna globalne  */
+:root {
+    --color-0: #030637;
+    --color-1: #3C0753;
+    --color-2: #720455;
+    --color-3: #910A67;
+}
+
+.cust-mainmenu {
+    background-color: var(--color-1);
+    height: auto;
+}
+.nav-link {
+    color:  white !important;
+}
+.nav-link.active {
+    color: whitesmoke !important;
+    text-decoration: underline !important;
+}
+.nav-link:hover {
+    text-decoration: blink !important;
+    font-weight: bold !important;
+}
+.dropdown-menu {
+    --bs-dropdown-bg: var(--color-2);
+    --bs-dropdown-link-hover-bg: var(--color-3);
+    top: 100%;
+    right: 0;
+    margin-left: -10rem;
+    margin-left: -300px;
+    --bs-dropdown-min-width: 300px;
+}
+.dropdown-menu label {color:white; margin-top: 8px; margin-bottom: 2px;}
+
+footer>div {padding-left: 3em; padding-top: 0.3em; background-color: var(--color-1); color: white; height: 2em;}
+
+.row {padding-left: 3em; padding-right: 3em;}
