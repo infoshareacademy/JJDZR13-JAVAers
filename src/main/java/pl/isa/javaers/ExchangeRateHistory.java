@@ -13,7 +13,7 @@ public class ExchangeRateHistory {
     private int userTime;
     private LocalDate startDate;
     private LocalDate endDate;
-    private static HashMap<Rates, Rate> rateHistoryList;
+    private static List<CurrRate> temporaryRatesList;
 
 
     public static String showRateHistory(HashMap<String, Asset> assetsHashMap, LocalDate startDate, LocalDate endDate) {
@@ -60,14 +60,16 @@ public class ExchangeRateHistory {
         }
         System.out.println("Your Currency is: " + currCode + " " + temporaryAssets.get(currCode).getFullName() + " And set dates are: " + startDate + " to: " + endDate);
 //
+        System.out.println(temporaryRatesList);
 
-
-//        RatesParser.getListOfRatesFromJSON(currCode);
-        rateHistoryList = RatesParser.getListOfRatesFromJSON(currCode);
-//        LocalDate finalStartDate = startDate;
-//        Predicate<Rate> affectiveDatePredicate = a -> a.getEffectiveDate().equals(finalStartDate);
-//        List<Rate> filteredRateHistoryList = rateHistoryList.stream().filter(affectiveDatePredicate).collect(Collectors.toList());
-        return rateHistoryList.toString();
+        temporaryRatesList = new ArrayList<>(RatesParser.listFromJSON(currCode).stream().toList());
+        System.out.println(temporaryRatesList);
+        LocalDate finalStartDate = startDate;
+        Predicate<CurrRate> affectiveDatePredicate = a -> a.getEffectiveDate().equals(finalStartDate);
+//        Predicate<RatesParser> affectiveDatePredicate = a -> a.equals(finalStartDate);
+//        List<RatesParser> filteredCurrRateHistoryList = temporaryRatesList.stream().filter(affectiveDatePredicate).collect(Collectors.toList());
+                List<CurrRate> filteredCurrRateHistoryList = temporaryRatesList.stream().filter(affectiveDatePredicate).collect(Collectors.toList());
+        return temporaryRatesList.toString();
 
         //// TODO: 12.02.2024  fix getting rates
 

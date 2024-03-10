@@ -1,5 +1,6 @@
 package pl.isa.javaers;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -25,31 +26,35 @@ public class Rates {
     public Rates() {
     }
 
-    public Rates(String table, String currency, String code) {
-        this.table = table;
-        this.currency = currency;
-        this.code = code;
-    }
+//    public Rates(String table, String currency, String code) {
+//        this.table = table;
+//        this.currency = currency;
+//        this.code = code;
+//    }
 
     @Override
     public String toString() {
         return "Rates for: " +
                 getCode();
     }
-
+@JsonIgnore
     public String getTable() {
         return table;
     }
 
+    @JsonIgnore
     public String getCurrency() {
         return currency;
     }
 
+    @JsonIgnore
     public String getCode() {
         return code;
     }
 
+
     public List<Rates> getRates() {
+
         return rates;
     }
 }
