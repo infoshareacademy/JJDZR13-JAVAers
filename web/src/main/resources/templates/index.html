@@ -6,7 +6,31 @@
 
 <nav th:replace="~{fragments::navbar}"></nav>
 
-<div th:replace="~{${content}::content}"></div>
+<header>
+    <div class="container">
+        <h1>Witaj gościu!!!</h1>
+    </div>
+</header>
+<div class="row">
+    <div class="col-md-4">
+        <h3>sekcja 1</h3>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Exercitationem explicabo vero deserunt porro cumque. Repudiandae amet voluptatem modi reiciendis quia! Repellat ullam nihil quos distinctio saepe consequatur excepturi id odit!
+        </p>
+    </div>
+    <div class="col-md-4 d-none d-md-block">
+        <h3>sekcja 2</h3>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Exercitationem explicabo vero deserunt porro cumque. Repudiandae amet voluptatem modi reiciendis quia! Repellat ullam nihil quos distinctio saepe consequatur excepturi id odit!
+        </p>
+    </div>
+    <div class="col-md-4">
+        <h3>sekcja 3</h3>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Exercitationem explicabo vero deserunt porro cumque. Repudiandae amet voluptatem modi reiciendis quia! Repellat ullam nihil quos distinctio saepe consequatur excepturi id odit!
+        </p>
+    </div>
+</div>
 
 <footer th:replace="~{fragments::footer}"></footer>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
