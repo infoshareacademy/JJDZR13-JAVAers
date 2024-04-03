@@ -26,12 +26,6 @@ public class Rates {
     public Rates() {
     }
 
-//    public Rates(String table, String currency, String code) {
-//        this.table = table;
-//        this.currency = currency;
-//        this.code = code;
-//    }
-
     @Override
     public String toString() {
         return "Rates{" +
@@ -41,11 +35,6 @@ public class Rates {
                 '}';
     }
 
-    //    @Override
-//    public String toString() {
-//        return "Rates for: " +
-//                getCode();
-//    }
 @JsonIgnore
     public String getTable() {
         return table;

@@ -14,12 +14,6 @@ public class CurrRate {
         public CurrRate() {
     }
 
-//    public CurrRate(String no, String effectiveDate, float mid) {
-//        this.no = no;
-//        this.effectiveDate = effectiveDate;
-//        this.mid = mid;
-//    }
-
     @Override
     public String toString() {
         return "Rate{ " +
