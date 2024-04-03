@@ -21,7 +21,7 @@ public class Rates {
     private String table;
     private String currency;
     private String code;
-    private static List<Rates> rates;
+    private static List<CurrRate> rates;
 
     public Rates() {
     }
@@ -51,7 +51,7 @@ public class Rates {
     }
 
 
-    public List<Rates> getRates() {
+    public List<CurrRate> getRates() {
 
         return rates;
     }

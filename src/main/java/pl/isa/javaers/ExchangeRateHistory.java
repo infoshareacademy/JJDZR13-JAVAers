@@ -14,7 +14,7 @@ public class ExchangeRateHistory {
     private int userTime;
     private LocalDate startDate;
     private LocalDate endDate;
-    private static List<Rates> temporaryRatesList;
+    private static List<CurrRate> temporaryRatesList;
 
 
     public static String showRateHistory(HashMap<String, Asset> assetsHashMap, LocalDate startDate, LocalDate endDate) throws IOException {
@@ -61,7 +61,7 @@ public class ExchangeRateHistory {
         }
         System.out.println("Your Currency is: " + currCode + " " + temporaryAssets.get(currCode).getFullName() + " And set dates are: " + startDate + " to: " + endDate);
 
-//        kursBGN.getRates().stream().forEach(rate -> System.out.println(rate.getEffectiveDate()));
+
         temporaryRatesList = RatesParser.listFromJSON(currCode);
         LocalDate finalStartDate = startDate;
         Predicate<CurrRate> affectiveDatePredicate = a -> a.getEffectiveDate().equals(finalStartDate);
