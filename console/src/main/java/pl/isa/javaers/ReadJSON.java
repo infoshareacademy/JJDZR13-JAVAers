@@ -13,6 +13,7 @@ public class ReadJSON {
             ObjectMapper objectMapper = new ObjectMapper();
             KursNBP kursBGN = objectMapper.readValue(data, KursNBP.class);
             System.out.println(kursBGN.getCurrency());
+//           kursBGN.getRates().stream().forEach(rate -> System.out.println(rate.getEffectiveDate()));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

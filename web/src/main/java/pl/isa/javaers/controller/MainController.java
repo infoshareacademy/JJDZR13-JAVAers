@@ -25,4 +25,10 @@ public class MainController {
         model.addAttribute("alerts", tmpAlerts);
         return "alertsList";
     }
+    @GetMapping("/rates")
+    String listaKursówWalut(Model model) {
+
+    model.addAttribute("content", "_rates")
+            .addAttribute("rates", .....)
+    }
 }

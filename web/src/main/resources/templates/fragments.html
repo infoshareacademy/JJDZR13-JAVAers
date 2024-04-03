@@ -20,7 +20,7 @@
                     <a class="nav-link" th:classappend="${content == '_welcome'} ? 'active':''"aria-current="page" href="/">Miejsce na logo</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link disabled" aria-current="page" href="#">Historyczne Kursy walut</a>
+                    <a class="nav-link" th:classappend="${content == '_rates'} ? 'active': ''"aria-current="page" href="/rates">Historyczne Kursy walut</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" th:classappend="${content == '_alertsList'} ? 'active':''"aria-current="page" href="/alerts">Zarządzanie alertami</a>
