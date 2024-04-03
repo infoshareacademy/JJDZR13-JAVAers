@@ -1,5 +1,6 @@
 package pl.isa.javaers;
 
+import java.io.IOException;
 import java.util.*;
 
 public abstract class Menu {
@@ -14,7 +15,7 @@ public abstract class Menu {
         this.isMainMenu = isMainMenu;
     }
 
-    public abstract void handleUserChoice(int choice);
+    public abstract void handleUserChoice(int choice) throws IOException;
 
     public void display() {
         System.out.println(name);
@@ -39,6 +40,8 @@ public abstract class Menu {
                 handleUserChoice(choice);
             } catch (NumberFormatException nfe) {
                 System.out.println("Number not typed. Try again.");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
         }
     }

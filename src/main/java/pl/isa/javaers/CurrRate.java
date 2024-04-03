@@ -20,12 +20,12 @@ public class CurrRate {
 //        this.mid = mid;
 //    }
 
-//    @Override
-//    public String toString() {
-//        return "Rate{ " +
-//                "Date: " + getEffectiveDate() + '\'' +
-//                "Mid rate " + getMid() + '\'';
-//    }
+    @Override
+    public String toString() {
+        return "Rate{ " +
+                "Date: " + getEffectiveDate() + '\'' +
+                "Mid rate " + getMid() + '\'';
+    }
 
     public String getNo() {
         return no;

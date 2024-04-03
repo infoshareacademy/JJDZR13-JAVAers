@@ -34,9 +34,18 @@ public class Rates {
 
     @Override
     public String toString() {
-        return "Rates for: " +
-                getCode();
+        return "Rates{" +
+                "table='" + table + '\'' +
+                ", currency='" + currency + '\'' +
+                ", code='" + code + '\'' +
+                '}';
     }
+
+    //    @Override
+//    public String toString() {
+//        return "Rates for: " +
+//                getCode();
+//    }
 @JsonIgnore
     public String getTable() {
         return table;
