@@ -1,17 +1,21 @@
 package pl.isa.javaers.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import pl.isa.javaers.Alert;
-import pl.isa.javaers.Main;
+import pl.isa.javaers.*;
 import pl.isa.javaers.UI;
 import pl.isa.javaers.configuration.Settings;
+import pl.isa.javaers.service.RateService;
 
 import java.util.List;
 
 @Controller
 public class MainController {
+
+    @Autowired
+    RateService rateService;
     @GetMapping("/")
     String welcome(Model model) {
         model.addAttribute("content","_welcome");
@@ -27,8 +31,9 @@ public class MainController {
     }
     @GetMapping("/rates")
     String listaKursówWalut(Model model) {
-
+        List<Rate> tmpRates = rateService.readJSON();
     model.addAttribute("content", "_rates")
-            .addAttribute("rates", .....)
+            .addAttribute("tmpRates", tmpRates);
+    return "rateHistory";
     }
 }
