@@ -11,7 +11,7 @@ public class ReadJSON {
         try {
             byte[] data = Files.readAllBytes(Paths.get("src/main/resources/KursyNBP/BGN.json"));
             ObjectMapper objectMapper = new ObjectMapper();
-            Rates kursBGN = objectMapper.readValue(data, Rates.class);
+            KursNBP kursBGN = objectMapper.readValue(data, KursNBP.class);
             System.out.println(kursBGN.getCurrency());
         } catch (IOException e) {
             throw new RuntimeException(e);

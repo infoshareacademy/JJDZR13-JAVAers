@@ -14,7 +14,7 @@ public class ExchangeRateHistory {
     private int userTime;
     private LocalDate startDate;
     private LocalDate endDate;
-    private static List<CurrRate> temporaryRatesList;
+    private static List<Rate> temporaryKursNBPList;
 
 
     public static String showRateHistory(HashMap<String, Asset> assetsHashMap, LocalDate startDate, LocalDate endDate) throws IOException {
@@ -62,11 +62,12 @@ public class ExchangeRateHistory {
         System.out.println("Your Currency is: " + currCode + " " + temporaryAssets.get(currCode).getFullName() + " And set dates are: " + startDate + " to: " + endDate);
 
 
-        temporaryRatesList = RatesParser.listFromJSON(currCode);
+        temporaryKursNBPList = RatesParser.listFromJSON(currCode);
         LocalDate finalStartDate = startDate;
-        Predicate<CurrRate> affectiveDatePredicate = a -> a.getEffectiveDate().equals(finalStartDate);
-        List<CurrRate> filteredCurrRateHistoryList = temporaryRatesList.stream().filter(affectiveDatePredicate).collect(Collectors.toList());
-        return temporaryRatesList.toString();
+//        Predicate<CurrRate> affectiveDatePredicate = a -> a.getEffectiveDate().equals(finalStartDate);
+        Predicate<KursNBP> affectiveDatePredicate = a -> a.getRates().contains(finalStartDate); //getTable().equals(finalStartDate);
+//        List<Rate> filteredCurrKursNBPHistoryList = temporaryKursNBPList.stream().filter(affectiveDatePredicate).collect(Collectors.toList());
+        return temporaryKursNBPList.toString();
 //        temporaryRatesList = new ArrayList<>(RatesParser.listFromJSON(currCode).stream().toList());
 //        Predicate<RatesParser> affectiveDatePredicate = a -> a.equals(finalStartDate);
 //        List<RatesParser> filteredCurrRateHistoryList = temporaryRatesList.stream().filter(affectiveDatePredicate).collect(Collectors.toList());
