@@ -5,7 +5,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import pl.isa.javaers.*;
-import pl.isa.javaers.UI;
 import pl.isa.javaers.configuration.Settings;
 import pl.isa.javaers.service.RateService;
 
@@ -31,9 +30,11 @@ public class MainController {
     }
     @GetMapping("/rates")
     String listaKursówWalut(Model model) {
-        List<Rate> tmpRates = rateService.readJSON();
+        List<Rate> tmpRates = rateService.readRatesFromJSON();
+        String rateName = rateService.rateName;
     model.addAttribute("content", "_rates")
-            .addAttribute("tmpRates", tmpRates);
+            .addAttribute("tmpRates", tmpRates)
+            .addAttribute("currencyName", rateName);
     return "rateHistory";
     }
 }
