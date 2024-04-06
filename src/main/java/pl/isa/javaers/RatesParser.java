@@ -18,7 +18,6 @@ public class RatesParser {
         try {
             byte[] data = Files.readAllBytes(Paths.get("src/main/resources/KursyNBP/" + currCode + ".json"));
             ObjectMapper objectMapper = new ObjectMapper();
-//            objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
             KursNBP currKursNBPAfterCCode = objectMapper.readValue(data, KursNBP.class);
             listFromJSON = currKursNBPAfterCCode.getRates().stream().toList();
 
@@ -28,9 +27,3 @@ public class RatesParser {
         }
     }
 }
-//    byte[] data = Files.readAllBytes(Paths.get("console/src/main/resources/KursyNBP/BGN.json"));
-//    ObjectMapper objectMapper = new ObjectMapper();
-//    KursNBP kursNBP = objectMapper.readValue(data, KursNBP.class);
-//            tmpRates = kursNBP.getRates().stream().toList();
-//                    rateName = kursNBP.getCurrency();
-//                    return tmpRates;

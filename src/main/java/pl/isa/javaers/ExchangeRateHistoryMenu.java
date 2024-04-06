@@ -1,4 +1,5 @@
 package pl.isa.javaers;
+
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.HashMap;
@@ -15,7 +16,7 @@ public class ExchangeRateHistoryMenu extends Menu {
             case 1:
                 HashMap<String, Asset> temporaryAssets = new HashMap<>();
                 temporaryAssets = Main.assets.getAllAssets();
-                ExchangeRateHistory.showRateHistory(temporaryAssets, LocalDate.MIN, LocalDate.MAX);
+                System.out.println(ExchangeRateHistory.showRateHistory(temporaryAssets, LocalDate.MIN, LocalDate.MAX));
                 break;
             default:
                 System.out.println("Wrong option. Try again");

@@ -2,10 +2,12 @@ package pl.isa.javaers;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.Period;
 import java.time.format.DateTimeParseException;
 import java.util.*;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
+
+import static pl.isa.javaers.Main.rate;
 
 public class ExchangeRateHistory {
     private static Scanner uIScanner = new Scanner(System.in);
@@ -15,6 +17,7 @@ public class ExchangeRateHistory {
     private LocalDate startDate;
     private LocalDate endDate;
     private static List<Rate> temporaryKursNBPList;
+    private static List<Rate> filteredRateList;
 
 
     public static String showRateHistory(HashMap<String, Asset> assetsHashMap, LocalDate startDate, LocalDate endDate) throws IOException {
@@ -44,8 +47,6 @@ public class ExchangeRateHistory {
                 validInput = true;
             } catch (DateTimeParseException dateTimeParseException) {
                 System.out.println("Invalid date format. Please try again a valid format");
-//                uIScanner.nextLine();
-
             }
         }
         validInput = false;
@@ -56,41 +57,24 @@ public class ExchangeRateHistory {
                 validInput = true; // If no exception is thrown, input is valid
             } catch (DateTimeParseException dateTimeParseException) {
                 System.out.println("Invalid date format. Please try again a valid format");
-//                uIScanner.nextLine();
             }
         }
         System.out.println("Your Currency is: " + currCode + " " + temporaryAssets.get(currCode).getFullName() + " And set dates are: " + startDate + " to: " + endDate);
 
-
+        filteredRateList = new ArrayList<Rate>();
         temporaryKursNBPList = RatesParser.listFromJSON(currCode);
         LocalDate finalStartDate = startDate;
-//        Predicate<CurrRate> affectiveDatePredicate = a -> a.getEffectiveDate().equals(finalStartDate);
-        Predicate<KursNBP> affectiveDatePredicate = a -> a.getRates().contains(finalStartDate); //getTable().equals(finalStartDate);
-//        List<Rate> filteredCurrKursNBPHistoryList = temporaryKursNBPList.stream().filter(affectiveDatePredicate).collect(Collectors.toList());
-        return temporaryKursNBPList.toString();
-//        temporaryRatesList = new ArrayList<>(RatesParser.listFromJSON(currCode).stream().toList());
-//        Predicate<RatesParser> affectiveDatePredicate = a -> a.equals(finalStartDate);
-//        List<RatesParser> filteredCurrRateHistoryList = temporaryRatesList.stream().filter(affectiveDatePredicate).collect(Collectors.toList());
-
-        //// TODO: 12.02.2024  fix getting rates
-
-
-//            ratesAsString.toString();
-//            System.out.println(ratesAsString);
-//            System.out.println(kursCurrCode.getRates().stream().collect(Collectors.toList()));
-//            kursCurrCode.getRates().stream().collect(Collectors.toList());
-//            List<Rate> ratesListFromString = objectMapper.readValue(ratesAsString, new TypeReference<List<Rate>>() {
-//                @Override
-//                public String toString() {
-//                    return super.toString();
-//                }
-//            });
-//            System.out.println(kursCurrCode.getRates().stream().toString());
-//
-//            List<Rate> rateList = new ArrayList<>();
-//            System.out.printf("", kursCurrCode.getRates().addAll(rateList));
-//            rateList.forEach(System.out::println);
-        //// TODO: 12.02.2024 add date validator to method
+        for (; finalStartDate.isBefore(endDate); finalStartDate = finalStartDate.plusDays(1)) {
+            for (Rate rate : temporaryKursNBPList) {
+                while (rate.getEffectiveDate().contains(finalStartDate.toString())) {
+                    if (rate.getEffectiveDate().equals(finalStartDate.toString())) {
+                        filteredRateList.add(rate);
+                        break;
+                    }
+                }
+            }
+        }
+        return filteredRateList.toString();
     }
-
 }
+//// TODO: 12.02.2024 add date validator to method
