@@ -12,7 +12,35 @@
     </div>
 </header>
 <div class="row">
-    <div class="col-md-6 text-center" style="background-color: #3d0472; color:white">Wyświetl kurs waluty w podanym zakresie czasu</div>
+    <div class="col-md-6 text-center" style="background-color: #3d0472; color:white">Wyświetl kurs waluty w podanym
+        zakresie czasu
+    </div>
+</div>
+<div th:fragment="content" class="container">
+    <div>
+        <div class="card index-card mt-5">
+            <div class="card-body">
+                <p>W formularzu poniżej podaj dane</p>
+            </div>
+        </div>
+        <form th:object="${kursNBP}" th:action="@{/rates-form}" method="post">
+            <div class="override-specify-label">
+                <label th:for="currency_code_input">Wybierz walutę</label>
+                <input type="text" class="form-control" id="currCode" th:field="*{code}">
+            </div>
+            <div class="override-specify-label">
+                <label th:for="start_date_input">Data początkowa</label>
+                <input type="text" class="form-control" id="startDate" th:field="*{currency}">
+            </div>
+            <div class="override-specify-label">
+                <label th:for="end_date_input">Wybierz walutę</label>
+                <input type="text" class="form-control" id="endDate" th:field="*{currency}">
+            </div>
+
+
+            <button type="submit" class="btn btn-primary">pokaz historie</button>
+        </form>
+    </div>
 </div>
 
 </body>
