@@ -17,6 +17,7 @@ public class RateService {
     public List<Rate> tmpRates = new ArrayList<>();
     public String rateName;
 
+
     public List<Rate> readRatesFromJSON() {
         try {
             byte[] data = Files.readAllBytes(Paths.get("console/src/main/resources/KursyNBP/BGN.json"));
@@ -29,5 +30,6 @@ public class RateService {
             throw new RuntimeException(e);
         }
     }
+
 }
 

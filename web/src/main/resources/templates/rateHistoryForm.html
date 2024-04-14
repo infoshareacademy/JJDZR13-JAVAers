@@ -24,16 +24,22 @@
             </div>
         </div>
         <form th:object="${kursNBP}" th:action="@{/rates-form}" method="post">
-            <div class="override-specify-label">
+            <!--            <div class="override-specify-label">-->
+            <!--                <label th:for="currency_code_input">Wybierz walutę</label>-->
+            <!--                <input type="text" class="form-control" id="currCode" th:field="*{code}">-->
+            <!--            </div>-->
+            <div class="snippet-container">
                 <label th:for="currency_code_input">Wybierz walutę</label>
-                <input type="text" class="form-control" id="currCode" th:field="*{code}">
-            </div>
+                <select id="currency_input_id" th:field="*{code}">
+                    <option th:each="currencyOpt : ${T(pl.isa.javaers.model.RateCodesEnum).values()}"
+                            th:value="${currencyOpt}" th:text="${currencyOpt.value}"></option>
+                </select></div>
             <div class="override-specify-label">
                 <label th:for="start_date_input">Data początkowa</label>
                 <input type="text" class="form-control" id="startDate" th:field="*{currency}">
             </div>
             <div class="override-specify-label">
-                <label th:for="end_date_input">Wybierz walutę</label>
+                <label th:for="end_date_input">Data końcowa</label>
                 <input type="text" class="form-control" id="endDate" th:field="*{currency}">
             </div>
 
