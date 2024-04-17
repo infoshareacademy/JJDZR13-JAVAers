@@ -8,7 +8,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
+import static pl.isa.javaers.ErrorCodes.ALERT_MODIFY_ERR;
 import static pl.isa.javaers.ErrorCodes.ALERT_REMOVAL_ERR;
 import static pl.isa.javaers.Settings.ALERTS_FILE;
 
@@ -51,6 +53,19 @@ public class Alerts {
         return result;
     }
     //check if the Asset's code is supported by the Application
+
+    //    Function finds and modifies alert identified by alert.alertID
+    public static int modifyAlert(Alert alertNew){
+        int result = ALERT_MODIFY_ERR;
+        //find current alert with the same allertID and get id as an object (to be removed
+        Optional<Alert> alertOld = alerts.stream().filter(c ->alertNew.getAlertID().equals((c.getAlertID()))).findFirst();
+        if(alertOld.isEmpty()) return result;
+        if(alerts.remove(alertOld)) return ALERT_REMOVAL_ERR;
+        alerts.add(alertNew);
+        return 0;
+        //after removal this object - add new (modified) version of this object
+        //alerts.stream().filter(c -> a.getAlertID().equals(c.getAlertID())).findFirst().peek().
+    }
 
 
     public Alerts() {
