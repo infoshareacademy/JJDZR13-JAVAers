@@ -2,7 +2,10 @@ package pl.isa.javaers.service;
 
 import pl.isa.javaers.Asset;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 
 import static pl.isa.javaers.ErrorCodes.ASSETS_WRONGCCODE;
 
@@ -27,5 +30,12 @@ public class Assets {
         return assets.containsKey(cCode)?0:ASSETS_WRONGCCODE;
     }
 
+    public static List<String> listCodes() {
+        List<String> list = new ArrayList<>();
+        for (String code : assets.keySet()) {
+            list.add(code);
+        }
+        return list;
+    }
 
 }

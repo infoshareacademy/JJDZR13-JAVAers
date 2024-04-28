@@ -41,7 +41,12 @@
                         <div class="col-md-1" style="margin-left: -40px;" th:text="${stat.count}">
                         </div>
                         <div class="col-md-3 text-center">
-                            <input type="text" name="currCode" th:id="${#ids.seq('currCode_')}" class="form-control form-control-sm" th:value="${alert.currCode}" disabled />
+<!--                            <input type="text" name="currCode" th:id="${#ids.seq('currCode_')}" class="form-control form-control-sm" th:value="${alert.currCode}" disabled />-->
+
+                            <select th:id="${#ids.seq('currCode_')}" name="currCode" th:value="${alert.currCode}" class="form-control form-control-sm" disabled>
+                                <option th:each="cc : ${assetCodes}" th:selected="${cc.equals(alert.currCode)}" th:value="${cc}" th:text="${cc}"></option>
+                            </select>
+
                             <input type="text" name="userID" th:id="${#ids.seq('userID_')}" class="form-control" th:value="${alert.userID}" hidden />
                             <input type="text" name="alertID" th:id="${#ids.seq('alertID_')}" class="form-control" th:value="${alert.alertID}" hidden />
                         </div>
@@ -83,7 +88,11 @@
                 <div class="row mt-3">
                     <div class="col-md-4 text-center">
                         <label for="currCode" class="form-label">Kod Waluty</label>
-                        <input type="text" name="currCode" id="currCode" th:field="*{currCode}" class="form-control form-control-sm" />
+<!--                        <input type="text" name="currCode" id="currCode" th:field="*{currCode}" class="form-control form-control-sm" />-->
+                        <select id="currCode" th:field="*{currCode}" class="form-control form-control-sm">
+                            <option th:each="cc : ${assetCodes}" th:value="${cc}" th:text="${cc}"></option>
+                        </select>
+
                         <input type="text" name="userID" th:field="*{userID}" class="form-control" hidden />
                     </div>
                     <div class="col-md-4 text-center">

@@ -12,8 +12,11 @@ import pl.isa.javaers.Main;
 import pl.isa.javaers.UI;
 import pl.isa.javaers.configuration.Settings;
 import pl.isa.javaers.model.AlertStr;
+import pl.isa.javaers.service.Assets;
 
 import java.util.List;
+
+import static pl.isa.javaers.JAVAers.assetCodes;
 
 @Controller
 public class MainController {
@@ -30,10 +33,10 @@ public class MainController {
         AlertStr alertStr = new AlertStr();
         model.addAttribute("alertnew", alertStr);
 
-
-
         model.addAttribute("content", "_alertsList");
         model.addAttribute("alerts", tmpAlerts);
+//        List<String> stringList = Assets.listCodes();
+        model.addAttribute("assetCodes", assetCodes);
         return "alertsList";
     }
     @PostMapping("/alertsave")
@@ -56,8 +59,10 @@ public class MainController {
         System.out.println(alertStr.toString());
         alertStr.setUserID(Settings.user);
         Alert alertTmp = alertStr.toAlert();
-        Main.alerts.addToAlerts(alertTmp);
-        Main.alerts.saveAlerts();
+        if(alertTmp != null) {
+            Main.alerts.addToAlerts(alertTmp);
+            Main.alerts.saveAlerts();
+        }
         return "redirect:/alerts";
     }
 }

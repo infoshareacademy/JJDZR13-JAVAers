@@ -59,6 +59,18 @@ public class AlertStr {
     }
 
     public pl.isa.javaers.Alert toAlert() {
+        try {
+            float value = Float.parseFloat(this.getCourse());
+        }
+                catch(Exception e) {
+                    System.out.println("Niepoprawny format danych");
+                    return null;
+                }
+//        return new pl.isa.javaers.Alert(
+//                this.getUserID(),
+//                this.getCurrCode(),
+//                Float.parseFloat(this.getCourse()),
+//                this.isHigherOrLower());
         return new pl.isa.javaers.Alert(
                 this.getUserID(),
                 this.getCurrCode(),
