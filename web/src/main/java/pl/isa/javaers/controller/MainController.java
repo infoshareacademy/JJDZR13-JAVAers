@@ -7,9 +7,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import pl.isa.javaers.Alert;
+import pl.isa.javaers.Alerts;
 import pl.isa.javaers.Main;
 import pl.isa.javaers.UI;
 import pl.isa.javaers.configuration.Settings;
+import pl.isa.javaers.model.AlertStr;
 
 import java.util.List;
 
@@ -24,13 +26,19 @@ public class MainController {
     String listaAlertów(Model model) {
         List<Alert> tmpAlerts = Main.alerts.getUserAlerts(Settings.user);
 //        UI.showAlerts(tmpAlerts, Main.user);
+
+        AlertStr alertStr = new AlertStr();
+        model.addAttribute("alertnew", alertStr);
+
+
+
         model.addAttribute("content", "_alertsList");
         model.addAttribute("alerts", tmpAlerts);
         return "alertsList";
     }
     @PostMapping("/alertsave")
     String ModyfikacjaAlertu(Model model, @ModelAttribute Alert alert) {
-        alert.setUserID(Settings.user);
+//        alert.setUserID(Settings.user);
         Main.alerts.modifyAlert(alert);
         Main.alerts.saveAlerts();
         return "redirect:/alerts";
@@ -40,7 +48,16 @@ public class MainController {
 //        alert.setUserID(Settings.user);
         System.out.println(delNameID);
         Main.alerts.removeFromAlerts(delNameID);
-        //Main.alerts.saveAlerts();
+        Main.alerts.saveAlerts();
+        return "redirect:/alerts";
+    }
+    @PostMapping("/newalert")
+    String DodanieAlertu(Model model, @ModelAttribute("alertnew") AlertStr alertStr) {
+        System.out.println(alertStr.toString());
+        alertStr.setUserID(Settings.user);
+        Alert alertTmp = alertStr.toAlert();
+        Main.alerts.addToAlerts(alertTmp);
+        Main.alerts.saveAlerts();
         return "redirect:/alerts";
     }
 }

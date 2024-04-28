@@ -7,8 +7,7 @@ import java.io.IOException;
 import java.util.*;
 
 
-import static pl.isa.javaers.ErrorCodes.ALERT_MODIFY_ERR;
-import static pl.isa.javaers.ErrorCodes.ALERT_REMOVAL_ERR;
+import static pl.isa.javaers.ErrorCodes.*;
 import static pl.isa.javaers.Settings.ALERTS_FILE;
 
 public class Alerts {
@@ -39,8 +38,12 @@ public class Alerts {
     }
 
     public static int addToAlerts(Alert alert) {
-        int result = Assets.checkCurrencyCode(alert.getCurrCode()); //check if the Asset's code is supported by the Application
-        if (result == 0) alerts.add(alert);
+        int result=ALERT_ADD_ERR;
+        int res = Assets.checkCurrencyCode(alert.getCurrCode()); //check if the Asset's code is supported by the Application
+        if (res == 0) {
+            alerts.add(alert);
+            result = 0;
+        }
         return result;
     }
 
@@ -60,26 +63,19 @@ public class Alerts {
             }
             return result;
     }
-//    Function finds and modifies alert identified by alert.alertID
+//    Function finds and replaces alert identified by alert.alertID
     public static int modifyAlert(Alert alertNew){
         int result = ALERT_MODIFY_ERR;
-        //find current alert with the same allertID and get id as an object (to be removed
         Iterator<Alert> alertIt = alerts.iterator();
         while(alertIt.hasNext()) {
             Alert alertTemp = alertIt.next();
-            if(alertTemp.getAlertID().equals(alertNew.getAlertID()))
+            if(alertTemp.getAlertID().equals(alertNew.getAlertID())) {
                 alertIt.remove();
+                result = 0;
+            }
         }
-        /*
-        Optional<Alert> alertOld = alerts.stream().filter(c -> alertNew.getAlertID().equals((c.getAlertID()))).findFirst();
-        if(alertOld.isEmpty()) return result;
-        if(alerts.remove(alertOld)) return ALERT_REMOVAL_ERR;
-         */
         alerts.add(alertNew);
-        System.out.println(alerts.toString());
-        return 0;
-        //after removal this object - add new (modified) version of this object
-        //alerts.stream().filter(c -> a.getAlertID().equals(c.getAlertID())).findFirst().peek().
+        return result;
     }
 
     public Alerts() {
