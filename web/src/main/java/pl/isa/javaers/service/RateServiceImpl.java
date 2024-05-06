@@ -40,8 +40,9 @@ public class RateServiceImpl implements RateService{
     }
 
     public List<Rate> getFilteredRateLIst(){
-        filteredRateLIst = readRatesFromJSON();
+//        filteredRateLIst = readRatesFromJSON();
 //        LocalDate temporaryLocalDate = userRateHistoryData.getStartDate();
+        tmpRates = readRatesFromJSON();
         LocalDate temporaryLocalDate = USER_RATE_HISTORY_DATA_LIST.get(0).getStartDate();
         for (; USER_RATE_HISTORY_DATA_LIST.get(0).getStartDate().isBefore(USER_RATE_HISTORY_DATA_LIST.get(0).getEndDate()); temporaryLocalDate = temporaryLocalDate.plusDays(1)) {
             for (Rate rate : tmpRates) {
