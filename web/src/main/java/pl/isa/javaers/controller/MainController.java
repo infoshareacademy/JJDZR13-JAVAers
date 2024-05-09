@@ -1,6 +1,5 @@
 package pl.isa.javaers.controller;
 
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,7 +10,6 @@ import pl.isa.javaers.configuration.Settings;
 import pl.isa.javaers.model.UserRateHistoryData;
 import pl.isa.javaers.service.RateServiceImpl;
 
-import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -37,12 +35,9 @@ public MainController(RateServiceImpl rateServiceImpl){this.rateServiceImpl = ra
     }
     @GetMapping("/rates")
     String listaKursówWalut(Model model) {
-//        List<Rate> tmpRates = rateService.readRatesFromJSON();
-        List<Rate> tmpRates = rateServiceImpl.getFilteredRateLIst(new UserRateHistoryData());
-        String rateName = rateServiceImpl.rateName;
     model.addAttribute("content", "_rates")
-            .addAttribute("tmpRates", tmpRates)
-            .addAttribute("currencyName", rateName);
+            .addAttribute("tmpRates", rateServiceImpl.getFilteredRateLIst())
+            .addAttribute("currencyName", rateServiceImpl.rateName);
     return "rate-history";
     }
     @GetMapping("/rates-form")
@@ -55,7 +50,7 @@ public MainController(RateServiceImpl rateServiceImpl){this.rateServiceImpl = ra
         String getRatesParamForm(@ModelAttribute UserRateHistoryData userRateHistoryData, Model model){
         model.addAttribute("content", "_rates-form");
         rateServiceImpl.createData(userRateHistoryData);
-        rateServiceImpl.getFilteredRateLIst(userRateHistoryData);
+        rateServiceImpl.filterRatesByDate(userRateHistoryData);
         return "redirect:/rates";
     }
 }

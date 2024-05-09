@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface RateService {
     List<Rate> readRatesFromJSON();
-    List<Rate> getFilteredRateLIst(UserRateHistoryData userRateHistoryData);
+    List<Rate> filterRatesByDate(UserRateHistoryData userRateHistoryData);
     List<LocalDate> createData(UserRateHistoryData userRateHistoryData);
 }
