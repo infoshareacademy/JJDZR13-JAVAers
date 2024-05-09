@@ -7,7 +7,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface RateService {
-    List<Rate> readRatesFromJSON();
+    List<Rate> readRatesFromJSON(UserRateHistoryData userRateHistoryData);
     List<Rate> filterRatesByDate(UserRateHistoryData userRateHistoryData);
     List<LocalDate> createData(UserRateHistoryData userRateHistoryData);
 }

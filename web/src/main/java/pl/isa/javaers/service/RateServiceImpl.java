@@ -23,9 +23,9 @@ public class RateServiceImpl implements RateService {
 
     private List<LocalDate> datesList = new ArrayList<>();
 
-    public List<Rate> readRatesFromJSON() {
+    public List<Rate> readRatesFromJSON(UserRateHistoryData userRateHistoryData) {
         try {
-            byte[] data = Files.readAllBytes(Paths.get("console/src/main/resources/KursyNBP/BGN.json"));
+            byte[] data = Files.readAllBytes(Paths.get("console/src/main/resources/KursyNBP/" + userRateHistoryData.getUserCurrencyCode() + ".json"));
             ObjectMapper objectMapper = new ObjectMapper();
             KursNBP kursNBP = objectMapper.readValue(data, KursNBP.class);
             tmpRates = kursNBP.getRates().stream().toList();
@@ -39,6 +39,7 @@ public class RateServiceImpl implements RateService {
     public List<LocalDate> createData(UserRateHistoryData userRateHistoryData) {
 
         tmpDate = userRateHistoryData.getStartDate();
+        datesList.clear();
 
         while (!tmpDate.isAfter(userRateHistoryData.getEndDate())) {
             datesList.add(tmpDate);
@@ -49,12 +50,13 @@ public class RateServiceImpl implements RateService {
 
 
     public List<Rate> filterRatesByDate(UserRateHistoryData userRateHistoryData) {
-
-        tmpRates = readRatesFromJSON();
+        filteredRateLIst.clear();
+        tmpRates = readRatesFromJSON(userRateHistoryData);
         List<LocalDate> datesList1 = createData(userRateHistoryData);
         for (Rate rate : tmpRates) {
             if (datesList1.toString().contains(rate.getEffectiveDate())) {
                 filteredRateLIst.add(rate);
+
             }
         }
         return filteredRateLIst;
