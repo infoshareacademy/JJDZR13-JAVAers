@@ -19,3 +19,11 @@ function ButtonsEnable(id){
 
     //window.alert(identifier);
 }
+
+function Confirm(message) {
+    if (!window.confirm(message)) event.preventDefault();
+}
+function ConfirmDel(currCode, relation, value) {
+    var message="Alert " + currCode + relation==='true' ?' > ':' < ' + value + "is going to be removed. Do you confirm?";
+    if (!window.confirm(message)) event.preventDefault();
+}

@@ -75,7 +75,8 @@
                     <div class="col-md-12 text-center">
                         <form role="form" th:action="@{/alertdelete}" method="post">
                             <input type="text" th:id="${#ids.seq('delID_')}" class="form-control" th:value="${alert.alertID}" th:name="delNameID" hidden />
-                            <button type="submit" class="btn btn-sm btn-outline-danger">Del</button>
+                            <button type="submit" class="btn btn-sm btn-outline-danger" th:attr="onclick=|Confirm('Alert is going to be removed. Do you confirm ?')|">Del</button>
+<!--                            <button type="submit" class="btn btn-sm btn-outline-danger" th:attr="onclick=|ConfirmDel(${alert.currCode},${alert.higherOrLower},${alert.course})|">Del</button>-->
                         </form>
                     </div>
                 </div>
