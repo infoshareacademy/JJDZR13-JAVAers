@@ -23,7 +23,7 @@ public class RateServiceImpl implements RateService {
 
     private List<LocalDate> datesList = new ArrayList<>();
 
-    public List<Rate> readRatesFromJSON(UserRateHistoryData userRateHistoryData) {
+    public List<Rate> readUserRatesFromJSON(UserRateHistoryData userRateHistoryData) {
         try {
             byte[] data = Files.readAllBytes(Paths.get("console/src/main/resources/KursyNBP/" + userRateHistoryData.getUserCurrencyCode() + ".json"));
             ObjectMapper objectMapper = new ObjectMapper();
@@ -35,6 +35,7 @@ public class RateServiceImpl implements RateService {
             throw new RuntimeException(e);
         }
     }
+
 
     public List<LocalDate> createData(UserRateHistoryData userRateHistoryData) {
 
@@ -51,7 +52,7 @@ public class RateServiceImpl implements RateService {
 
     public List<Rate> filterRatesByDate(UserRateHistoryData userRateHistoryData) {
         filteredRateLIst.clear();
-        tmpRates = readRatesFromJSON(userRateHistoryData);
+        tmpRates = readUserRatesFromJSON(userRateHistoryData);
         List<LocalDate> datesList1 = createData(userRateHistoryData);
         for (Rate rate : tmpRates) {
             if (datesList1.toString().contains(rate.getEffectiveDate())) {

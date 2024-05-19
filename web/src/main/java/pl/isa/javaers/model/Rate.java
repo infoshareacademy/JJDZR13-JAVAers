@@ -29,6 +29,18 @@ public class Rate {
         this.mid = mid;
     }
 
+    public void setNo(String no) {
+        this.no = no;
+    }
+
+    public void setEffectiveDate(String effectiveDate) {
+        this.effectiveDate = effectiveDate;
+    }
+
+    public void setMid(float mid) {
+        this.mid = mid;
+    }
+
     public Rate() {
     }
 

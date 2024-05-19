@@ -14,7 +14,13 @@ import java.time.LocalDateTime;
 public class Notification {
 
     private long notificationId;
+    private String userId;
     private LocalDateTime dateTimeCreated;
+    private LocalDateTime dateTimeUpdated;
     private final String description = "Spełniono warunek";
-
+    private boolean isNotifyLaunched;
+    private String currency1Code;
+//    private String currency2Code;
+    private boolean isHigherOrLower;
+    private float course;
 }
