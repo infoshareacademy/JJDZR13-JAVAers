@@ -5,9 +5,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import pl.isa.javaers.*;
+import pl.isa.javaers.Alert;
+import pl.isa.javaers.Main;
 import pl.isa.javaers.configuration.Settings;
+import pl.isa.javaers.dto.CurrentTableDTO;
 import pl.isa.javaers.model.UserRateHistoryData;
+import pl.isa.javaers.rest.RestTemplateService;
+import pl.isa.javaers.rest.RestTemplateServiceImpl;
+import pl.isa.javaers.service.RateService;
 import pl.isa.javaers.service.RateServiceImpl;
 
 import java.util.List;
@@ -15,16 +20,25 @@ import java.util.List;
 @Controller
 public class MainController {
 
-//    @Autowired
+    //    @Autowired
 //    RateService rateService;
-private final RateServiceImpl rateServiceImpl;
-public MainController(RateServiceImpl rateServiceImpl){this.rateServiceImpl = rateServiceImpl;}
+    private final RateService rateService;
+    private final RestTemplateService restTemplateService;
+
+    public MainController(RateServiceImpl rateService, RestTemplateServiceImpl restTemplateServiceImpl) {
+        this.rateService = rateService;
+        this.restTemplateService = restTemplateServiceImpl;
+    }
 
     @GetMapping("/")
     String welcome(Model model) {
-        model.addAttribute("content","_welcome");
+//        RestTemplateServiceImpl restTemplateServiceImpl = new RestTemplateServiceImpl(new RestTemplate());
+
+        CurrentTableDTO currentTableDTO = restTemplateService.getCurrentNbpTable();
+        model.addAttribute("content", "_welcome");
         return "index";
     }
+
     @GetMapping("/alerts")
     String listaAlertów(Model model) {
         List<Alert> tmpAlerts = Main.alerts.getUserAlerts(Settings.user);
@@ -33,24 +47,27 @@ public MainController(RateServiceImpl rateServiceImpl){this.rateServiceImpl = ra
         model.addAttribute("alerts", tmpAlerts);
         return "alertsList";
     }
+
     @GetMapping("/rates")
     String listaKursówWalut(Model model) {
-    model.addAttribute("content", "_rates")
-            .addAttribute("tmpRates", rateServiceImpl.getFilteredRateLIst())
-            .addAttribute("currencyName", rateServiceImpl.rateName);
-    return "rate-history";
+        model.addAttribute("content", "_rates")
+                .addAttribute("tmpRates", rateService.getFilteredRateLIst())
+                .addAttribute("currencyName", rateService.getRateName());
+        return "rate-history";
     }
+
     @GetMapping("/rates-form")
     String ratesForm(Model model) {
         model.addAttribute("content", "_rates-form")
                 .addAttribute("userRateHistoryData", new UserRateHistoryData());
         return "rateHistoryForm";
     }
+
     @PostMapping(value = "/rates-form")
-        String getRatesParamForm(@ModelAttribute UserRateHistoryData userRateHistoryData, Model model){
+    String getRatesParamForm(@ModelAttribute UserRateHistoryData userRateHistoryData, Model model) {
         model.addAttribute("content", "_rates-form");
-        rateServiceImpl.createData(userRateHistoryData);
-        rateServiceImpl.filterRatesByDate(userRateHistoryData);
+        rateService.createData(userRateHistoryData);
+        rateService.filterRatesByDate(userRateHistoryData);
         return "redirect:/rates";
     }
 }

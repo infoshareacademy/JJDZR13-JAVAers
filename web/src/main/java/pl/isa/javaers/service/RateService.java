@@ -10,4 +10,6 @@ public interface RateService {
     List<Rate> readRatesFromJSON(UserRateHistoryData userRateHistoryData);
     List<Rate> filterRatesByDate(UserRateHistoryData userRateHistoryData);
     List<LocalDate> createData(UserRateHistoryData userRateHistoryData);
+    List<Rate> getFilteredRateLIst();
+    String getRateName();
 }

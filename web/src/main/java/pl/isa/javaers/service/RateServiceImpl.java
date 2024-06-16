@@ -18,6 +18,11 @@ public class RateServiceImpl implements RateService {
 
     private List<Rate> tmpRates = new ArrayList<>();
     public String rateName;
+
+    public String getRateName() {
+        return rateName;
+    }
+
     private LocalDate tmpDate;
     private List<Rate> filteredRateLIst = new ArrayList<>();
 
