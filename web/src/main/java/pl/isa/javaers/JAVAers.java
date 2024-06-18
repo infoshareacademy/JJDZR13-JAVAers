@@ -3,6 +3,7 @@ package pl.isa.javaers;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.client.RestTemplate;
+import pl.isa.javaers.service.CurrRatesList;
 import pl.isa.javaers.service.RateServiceImpl;
 
 import java.util.ArrayList;
@@ -21,6 +22,7 @@ public class JAVAers {
 		//new MainMenu().runMenu();
 		alerts = new Alerts();
 		alerts.loadAlerts();
+
 
 	}
 

@@ -9,6 +9,7 @@ import pl.isa.javaers.Alert;
 import pl.isa.javaers.Main;
 import pl.isa.javaers.configuration.Settings;
 import pl.isa.javaers.dto.CurrentTableDTO;
+import pl.isa.javaers.model.CurrRates;
 import pl.isa.javaers.model.UserRateHistoryData;
 import pl.isa.javaers.rest.RestTemplateService;
 import pl.isa.javaers.rest.RestTemplateServiceImpl;
@@ -17,11 +18,10 @@ import pl.isa.javaers.service.RateServiceImpl;
 
 import java.util.List;
 
+
 @Controller
 public class MainController {
 
-    //    @Autowired
-//    RateService rateService;
     private final RateService rateService;
     private final RestTemplateService restTemplateService;
 
@@ -35,7 +35,15 @@ public class MainController {
 //        RestTemplateServiceImpl restTemplateServiceImpl = new RestTemplateServiceImpl(new RestTemplate());
 
         CurrentTableDTO currentTableDTO = restTemplateService.getCurrentNbpTable();
-        model.addAttribute("content", "_welcome");
+        String tableDetails = "nr " + currentTableDTO.getNo() + " z dnia " + currentTableDTO.getEffectiveDate();
+        List<CurrRates> currNbpTable;
+        currNbpTable = currentTableDTO.getRates().stream()
+                .filter(currRates -> currRates.getCode().matches("^(EUR|USD|HUF|CHF|GBP|JPY|CZK|DKK|NOK|SEK|RON|BGN|TRY|CNY)$"))
+                .toList();
+
+        model.addAttribute("content", "_welcome")
+                .addAttribute("courses", currNbpTable)
+                .addAttribute("tableDetails", tableDetails);
         return "index";
     }
 

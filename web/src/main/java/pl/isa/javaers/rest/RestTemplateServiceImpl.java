@@ -8,7 +8,7 @@ import pl.isa.javaers.dto.CurrentTableDTO;
 import java.util.List;
 @Component
 public class RestTemplateServiceImpl implements RestTemplateService {
-    private static final String URL1 = "http://api.nbp.pl/api/exchangerates/tables/B/";
+    private static final String URL1 = "http://api.nbp.pl/api/exchangerates/tables/A/";
     private final RestTemplate restTemplate = new RestTemplate();
 
 

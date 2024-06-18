@@ -45,6 +45,8 @@ public class CurrentTableDTO {
         this.effectiveDate = effectiveDate;
     }
 
+
+
     public List<CurrRates> getRates() {
         return rates;
     }

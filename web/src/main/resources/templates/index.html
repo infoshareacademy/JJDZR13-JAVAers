@@ -8,15 +8,24 @@
 
 <header>
     <div class="container">
-        <h1>Witaj gościu!!!</h1>
+<!--        <h1>Witaj gościu!!!</h1>-->
     </div>
 </header>
 <div class="row">
     <div class="col-md-4">
-        <h3>sekcja 1</h3>
-        <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Exercitationem explicabo vero deserunt porro cumque. Repudiandae amet voluptatem modi reiciendis quia! Repellat ullam nihil quos distinctio saepe consequatur excepturi id odit!
-        </p>
+
+        <div class="row">
+            <h4>Tabela kursów średnich NBP</h4>
+            <h6 th:text="${tableDetails}"></h6>
+            <div class="col-md-6 text-center" style="background-color: #720455; color:white">Waluta</div>
+            <div class="col-md-3 text-center" style="background-color: #720455; color:white">kod waluty</div>
+            <div class="col-md-3 text-center" style="background-color: #720455; color:white">Kurs średni</div>
+        </div>
+        <div class="row" th:each="course: ${courses}">
+            <div class="col-md-6 fs-6 text-left" th:text="${course.getCurrency()}"></div>
+            <div class="col-md-3 fs-6 text-center" th:text="${course.getCode()}"></div>
+            <div class="col-md-3 fs-6 text-center" th:text="${course.getMid()}"></div>
+        </div>
     </div>
     <div class="col-md-4 d-none d-md-block">
         <h3>sekcja 2</h3>
