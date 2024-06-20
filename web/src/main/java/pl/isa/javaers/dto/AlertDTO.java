@@ -1,52 +1,33 @@
-package pl.isa.javaers;
+package pl.isa.javaers.dto;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.PropertyAccessor;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
+import org.springframework.beans.factory.annotation.Autowired;
+import pl.isa.javaers.model.Alert;
+import pl.isa.javaers.model.User;
+import pl.isa.javaers.service.UserService;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-
-import static pl.isa.javaers.ErrorCodes.*;
-
-public class Alert {
+public class AlertDTO {
     private String alertID;             //unique alert identifier
     private String userID;              //unique User identifier
     private String currCode;            //three letters currency code ie. PLN, USD, GBP
     private float course;               // value ie. 16,5643 (four places after comma)
     private boolean higherOrLower;      //True for higher False for lower than course
 
-    public Alert(String userID, String currCode, float course, boolean higherOrLower) {
-        this.alertID = GeneratorAlertID.generatorAlertID();
-        this.userID = userID;
-        this.currCode = currCode;
-        this.course = course;
-        this.higherOrLower = higherOrLower;
+    private UserService userService;
+
+    @Autowired
+    public AlertDTO(UserService userService) {
+        this.userService = userService;
     }
-    public Alert(String alertID, String userID, String currCode, float course, boolean higherOrLower) {
+    public AlertDTO(String alertID, String userID, String currCode, float course, boolean higherOrLower) {
         this.alertID = alertID;
         this.userID = userID;
         this.currCode = currCode;
         this.course = course;
         this.higherOrLower = higherOrLower;
     }
-
-    public Alert() {
-    }
-
-
-    @Override
-    public String toString() {
-        return "Alert{" +
-                "alertID='" + alertID + '\'' +
-                ", userID='" + userID + '\'' +
-                ", currCode='" + currCode + '\'' +
-                ", course=" + course +
-                ", higherOrLower=" + higherOrLower +
-                '}';
+    public Alert toAlert() {
+        User user = userService.getUserById(Long.getLong(this.getUserID()));
+        return new Alert(user, this.getCurrCode(), this.getCourse(), this.isHigherOrLower());
     }
 
     public String getAlertID() {
@@ -88,7 +69,4 @@ public class Alert {
     public void setHigherOrLower(boolean higherOrLower) {
         this.higherOrLower = higherOrLower;
     }
-
-
 }
-

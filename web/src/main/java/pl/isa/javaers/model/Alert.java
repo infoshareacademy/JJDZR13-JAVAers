@@ -1,58 +1,53 @@
 package pl.isa.javaers.model;
 
-import org.springframework.stereotype.Component;
-import pl.isa.javaers.GeneratorAlertID;
-@Component
+import jakarta.persistence.*;
+import pl.isa.javaers.dto.AlertDTO;
+
+import java.util.UUID;
+
+@Entity
+@Table(name="alerts")
 public class Alert {
-    private String alertID;             //unique alert identifier
-    private String userID;              //unique User identifier
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(name="id", updatable = false, nullable = false)
+    private UUID alertID;             //unique alert identifier
+
+    @ManyToOne
+    @JoinColumn(name="user_id", nullable = false)
+    private User user;              //unique User identifier
+
+    @Column(name="curr_code")
     private String currCode;            //three letters currency code ie. PLN, USD, GBP
     private float course;               // value ie. 16,5643 (four places after comma)
+    @Column(columnDefinition = "TINYINT(1)")
     private boolean higherOrLower;      //True for higher False for lower than course
 
-    public Alert(String userID, String currCode, float course, boolean higherOrLower) {
-        this.alertID = GeneratorAlertID.generatorAlertID();
-        this.userID = userID;
-        this.currCode = currCode;
-        this.course = course;
-        this.higherOrLower = higherOrLower;
-    }
-    public Alert(String alertID, String userID, String currCode, float course, boolean higherOrLower) {
-        this.alertID = alertID;
-        this.userID = userID;
-        this.currCode = currCode;
-        this.course = course;
-        this.higherOrLower = higherOrLower;
-    }
 
     public Alert() {
     }
 
-    @Override
-    public String toString() {
-        return "Alert{" +
-                "alertID='" + alertID + '\'' +
-                ", userID='" + userID + '\'' +
-                ", currCode='" + currCode + '\'' +
-                ", course=" + course +
-                ", higherOrLower=" + higherOrLower +
-                '}';
+    public Alert(User user, String currCode, float course, boolean higherOrLower) {
+        this.user = user;
+        this.currCode = currCode;
+        this.course = course;
+        this.higherOrLower = higherOrLower;
     }
 
-    public String getAlertID() {
+    public UUID getAlertID() {
         return alertID;
     }
 
-    public void setAlertID(String alertID) {
+    public void setAlertID(UUID alertID) {
         this.alertID = alertID;
     }
 
-    public String getUserID() {
-        return userID;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserID(String userID) {
-        this.userID = userID;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getCurrCode() {
@@ -78,8 +73,12 @@ public class Alert {
     public void setHigherOrLower(boolean higherOrLower) {
         this.higherOrLower = higherOrLower;
     }
-
-
-
+    public AlertDTO toDTO() {
+        return new AlertDTO(this.getAlertID().toString(),
+                this.getUser().getId().toString(),
+                this.getCurrCode(),
+                this.getCourse(),
+                this.isHigherOrLower());
+    }
 }
 

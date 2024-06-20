@@ -1,18 +1,17 @@
 package pl.isa.javaers.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import pl.isa.javaers.Alert;
-import pl.isa.javaers.Alerts;
+import org.springframework.web.bind.annotation.*;
+import pl.isa.javaers.AlertJSON;
 import pl.isa.javaers.Main;
-import pl.isa.javaers.UI;
 import pl.isa.javaers.configuration.Settings;
+import pl.isa.javaers.dto.AlertDTO;
+import pl.isa.javaers.model.Alert;
 import pl.isa.javaers.model.AlertStr;
-import pl.isa.javaers.service.Assets;
+import pl.isa.javaers.service.AlertService;
+import pl.isa.javaers.service.UserService;
 
 import java.util.List;
 
@@ -20,6 +19,15 @@ import static pl.isa.javaers.JAVAers.assetCodes;
 
 @Controller
 public class MainController {
+    private final AlertService alertService;
+    private final UserService userService;
+
+    @Autowired
+    public MainController(AlertService alertService, UserService userService) {
+        this.alertService = alertService;
+        this.userService = userService;
+    }
+
     @GetMapping("/")
     String welcome(Model model) {
         model.addAttribute("content","_welcome");
@@ -27,22 +35,22 @@ public class MainController {
     }
     @GetMapping("/alerts")
     String listaAlertów(Model model) {
-        List<Alert> tmpAlerts = Main.alerts.getUserAlerts(Settings.user);
-//        UI.showAlerts(tmpAlerts, Main.user);
+        List<AlertJSON> tmpAlertJSONS = Main.alerts.getUserAlerts(Settings.user);
+//        UI.showAlerts(tmpAlertJSONS, Main.user);
 
         AlertStr alertStr = new AlertStr();
         model.addAttribute("alertnew", alertStr);
 
         model.addAttribute("content", "_alertsList");
-        model.addAttribute("alerts", tmpAlerts);
+        model.addAttribute("alerts", tmpAlertJSONS);
 //        List<String> stringList = Assets.listCodes();
         model.addAttribute("assetCodes", assetCodes);
         return "alertsList";
     }
     @PostMapping("/alertsave")
-    String ModyfikacjaAlertu(Model model, @ModelAttribute Alert alert) {
-//        alert.setUserID(Settings.user);
-        Main.alerts.modifyAlert(alert);
+    String ModyfikacjaAlertu(Model model, @ModelAttribute AlertJSON alertJSON) {
+//        alertJSON.setUserID(Settings.user);
+        Main.alerts.modifyAlert(alertJSON);
         Main.alerts.saveAlerts();
         return "redirect:/alerts";
     }
@@ -58,11 +66,39 @@ public class MainController {
     String DodanieAlertu(Model model, @ModelAttribute("alertnew") AlertStr alertStr) {
         System.out.println(alertStr.toString());
         alertStr.setUserID(Settings.user);
-        Alert alertTmp = alertStr.toAlert();
-        if(alertTmp != null) {
-            Main.alerts.addToAlerts(alertTmp);
+        AlertJSON alertJSONTmp = alertStr.toAlert();
+        if(alertJSONTmp != null) {
+            Main.alerts.addToAlerts(alertJSONTmp);
             Main.alerts.saveAlerts();
         }
         return "redirect:/alerts";
+    }
+    @GetMapping("/alerts/list/{id}")
+    String alertListSql(Model model, @PathVariable String id) {
+//    List<Alert> alertListSql(Model model, @PathVariable String id) {
+//        List<Alert> userAlerts = alertService.getUserAlerts(Long.parseLong(id));
+        List<AlertDTO> userAlertsDTO = alertService.getUserAlertsDTO(Long.parseLong(id));
+
+        AlertStr alertStr = new AlertStr();
+        model.addAttribute("alertnew", alertStr);
+
+        model.addAttribute("content", "_alertsListSQL");
+        model.addAttribute("alerts", userAlertsDTO);
+//        List<String> stringList = Assets.listCodes();
+        model.addAttribute("assetCodes", assetCodes);
+        return "alertsListSQL";
+    }
+
+    @PostMapping("/newalertSQL")
+    String DodanieAlertuSQL(Model model, @ModelAttribute("alertnew") AlertDTO alertDTO) {
+        alertDTO.setUserID("1");
+        Alert alert = alertDTO.toAlert();
+        alertService.saveAlert(alert);
+//        alertStr.setUserID(Settings.user);
+//        AlertJSON alertJSONTmp = alertStr.toAlert();
+//        if(alertJSONTmp != null) {
+//            Main.alerts.addToAlerts(alertJSONTmp);
+//            Main.alerts.saveAlerts();
+        return "redirect:/alerts/list/1";
     }
 }

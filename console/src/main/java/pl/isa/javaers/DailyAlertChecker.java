@@ -13,9 +13,9 @@ public class DailyAlertChecker {
     private String rateEffectiveDate = String.valueOf(new Rate().getEffectiveDate());
     private String rateCurrency = new KursNBP().getCode();
     private float rateCourse = new Rate().getMid();//String.valueOf(new Rate().getMid());
-    private String alertID = String.valueOf(new Alert().getAlertID());                                          // dane z alertu ustawionego przez uzytkownika pobrane do porownania
-    private float userCourse = new Alert().getCourse();  //String.valueOf(new Alert().getCourse());
-    private String userCurrency = new Alert().getCurrCode();
+    private String alertID = String.valueOf(new AlertJSON().getAlertID());                                          // dane z alertu ustawionego przez uzytkownika pobrane do porownania
+    private float userCourse = new AlertJSON().getCourse();  //String.valueOf(new AlertJSON().getCourse());
+    private String userCurrency = new AlertJSON().getCurrCode();
 
     private static boolean isAlertConditionFulfilled = false;
     private String actualDate = String.valueOf(Date.valueOf(LocalDate.now()));
@@ -38,7 +38,7 @@ public class DailyAlertChecker {
             try {
                 if (!dailyAlertFile.exists()) {
                     dailyAlertFile.createNewFile();
-                    System.out.println("Daily Alert Checker file Created" + saveFilaDate);
+                    System.out.println("Daily AlertJSON Checker file Created" + saveFilaDate);
 
                 }
                 if (dailyAlertFile.canWrite()) {
@@ -48,7 +48,7 @@ public class DailyAlertChecker {
 
                     String alertNotification = "cos co chcemy zeby bylo zapisane w pliku po spelnieniu warunkow"; // moze trzeba tu przekazac alert ID a nie tylko string
                     dailyAlertFileFormatter.format("%s \n", alertNotification);
-                    System.out.println("Daily Alert Checker file Updated: " + saveFilaDate);
+                    System.out.println("Daily AlertJSON Checker file Updated: " + saveFilaDate);
 
                 }
             } catch (Exception e) {

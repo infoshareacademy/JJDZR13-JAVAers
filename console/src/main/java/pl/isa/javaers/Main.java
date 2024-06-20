@@ -10,7 +10,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        List<Alert> tmpAlerts = new ArrayList<>();
+        List<AlertJSON> tmpAlertJSONS = new ArrayList<>();
         Assets.loadAssets();
         DailyAlertChecker.dailyAlertCheckerFileSaver();
         //new MainMenu().runMenu();

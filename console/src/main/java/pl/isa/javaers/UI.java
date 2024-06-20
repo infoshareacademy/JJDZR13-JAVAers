@@ -1,29 +1,28 @@
 package pl.isa.javaers;
 
-import java.sql.SQLOutput;
 import java.util.*;
 
-import static pl.isa.javaers.Alerts.alerts;
+import static pl.isa.javaers.Alerts.alertJSONS;
 
 public class UI {
     static Scanner uiscanner = new Scanner(System.in);
     static public void showAllAlerts() {
-        System.out.println("alerts : " + alerts);
+        System.out.println("alertJSONS : " + alertJSONS);
     }
-    static public void showAlerts(List<Alert> alertList) {
+    static public void showAlerts(List<AlertJSON> alertJSONList) {
         String toDisplay="--------------------------\n\r";
         int i=1;
-        for(Alert al:alertList){
+        for(AlertJSON al: alertJSONList){
             char sign = al.isHigherOrLower()?'>':'<';
             toDisplay += i++ + " " + al.getAlertID() + " " + al.getCurrCode() + " " + sign + " " + al.getCourse() + " \n\r";
         }
         System.out.println(toDisplay);
         return;
     }
-    static public void showAlerts(List<Alert> alertList, String userID) {
-        String toDisplay="User " + userID + " alerts list:\n\r--------------------------\n\r";
+    static public void showAlerts(List<AlertJSON> alertJSONList, String userID) {
+        String toDisplay="User " + userID + " alertJSONS list:\n\r--------------------------\n\r";
         int i=1;
-        for(Alert al:alertList){
+        for(AlertJSON al: alertJSONList){
             char sign = al.isHigherOrLower()?'>':'<';
             toDisplay += i++ + " " + al.getAlertID() + " " + al.getCurrCode() + " " + sign + " " + al.getCourse() + " \n\r";
         }
@@ -88,11 +87,11 @@ public class UI {
             if (inputString.length() == 1) {            // Check if the inputString has only one character
                 userChoice = inputString.charAt(0);
                 if (userChoice == 'y' || userChoice == 'Y') {
-                    if(0!=Alerts.addToAlerts(new Alert(Main.user,currCode,value,higherOrLower))) System.out.println("Alert has not been added");
+                    if(0!=Alerts.addToAlerts(new AlertJSON(Main.user,currCode,value,higherOrLower))) System.out.println("AlertJSON has not been added");
                     else {
                         Alerts.saveAlerts();
                         char znak = higherOrLower?'>':'<';
-                        System.out.println("Alert " + currCode + " " + znak + " " + value + " has been added");
+                        System.out.println("AlertJSON " + currCode + " " + znak + " " + value + " has been added");
                     }
                     validInput=true;
                 }
@@ -108,16 +107,16 @@ public class UI {
         // Can't close the scanner to prevent resource leaks - it causes runtime error
         //uiscanner.close();
     }
-    static public void removeAlert(List<Alert> alertList, String userID){
+    static public void removeAlert(List<AlertJSON> alertJSONList, String userID){
         boolean validInput = false;
         int choice=-1;
-        Alert alert;
+        AlertJSON alertJSON;
         char userChoice = '\0';
         char znak='_';
 
-        String toDisplay="User " + userID + " alerts list:\n\r--------------------------\n\r";
+        String toDisplay="User " + userID + " alertJSONS list:\n\r--------------------------\n\r";
         int i=1;
-        for(Alert al:alertList){
+        for(AlertJSON al: alertJSONList){
             char sign = al.isHigherOrLower()?'>':'<';
             toDisplay += i++ + " " + al.getAlertID() + " " + al.getCurrCode() + " " + sign + " " + al.getCourse() + " \n\r";
         }
@@ -127,7 +126,7 @@ public class UI {
 
         while (!validInput) {
             try {
-                System.out.println("Choose the alert number (1.." + i + ") that should be removed. Choose 0 to go back without any removal.");
+                System.out.println("Choose the alertJSON number (1.." + i + ") that should be removed. Choose 0 to go back without any removal.");
                 choice = uiscanner.nextInt();
                 if (choice >=0 && choice <=i) validInput = true; // If no exception is thrown, input is valid
             } catch (InputMismatchException e) {
@@ -141,23 +140,23 @@ public class UI {
             System.out.println("Your choice : " + choice + ". Going back to upper menu level without any removal");
             return;
         }
-        alert = alertList.get(choice-1);
-        System.out.println("your choice : " + choice + ". The following alert has been chosen for removal : ");
-        System.out.println(alert.toString());
+        alertJSON = alertJSONList.get(choice-1);
+        System.out.println("your choice : " + choice + ". The following alertJSON has been chosen for removal : ");
+        System.out.println(alertJSON.toString());
 
         validInput = false;
         while (!validInput) {
-            System.out.println("Please press Y to confirm or N to cancel this alert removal");
+            System.out.println("Please press Y to confirm or N to cancel this alertJSON removal");
             String inputString = uiscanner.next();
 
             if (inputString.length() == 1) {
                 userChoice = inputString.charAt(0);
                 if (userChoice == 'y' || userChoice == 'Y') {
-                    if(0!=Alerts.removeFromAlerts(alert)) System.out.println("Alert has not been removed error");
+                    if(0!=Alerts.removeFromAlerts(alertJSON)) System.out.println("AlertJSON has not been removed error");
                     else {
                         Alerts.saveAlerts();
-                        znak = alert.isHigherOrLower()?'>':'<';
-                        System.out.println("Alert " + alert.getCurrCode() + " " + znak + " " + alert.getCourse() + " has been removed");
+                        znak = alertJSON.isHigherOrLower()?'>':'<';
+                        System.out.println("AlertJSON " + alertJSON.getCurrCode() + " " + znak + " " + alertJSON.getCourse() + " has been removed");
                     }
                     validInput=true;
                 }

@@ -1,5 +1,7 @@
 package pl.isa.javaers.model;
 
+import pl.isa.javaers.AlertJSON;
+
 public class AlertStr {
 //    private String alertID;             //unique alert identifier
     private String userID;              //unique User identifier
@@ -58,7 +60,7 @@ public class AlertStr {
         this.higherOrLower = higherOrLower;
     }
 
-    public pl.isa.javaers.Alert toAlert() {
+    public AlertJSON toAlert() {
         try {
             float value = Float.parseFloat(this.getCourse());
         }
@@ -66,12 +68,12 @@ public class AlertStr {
                     System.out.println("Niepoprawny format danych");
                     return null;
                 }
-//        return new pl.isa.javaers.Alert(
+//        return new pl.isa.javaers.AlertJSON(
 //                this.getUserID(),
 //                this.getCurrCode(),
 //                Float.parseFloat(this.getCourse()),
 //                this.isHigherOrLower());
-        return new pl.isa.javaers.Alert(
+        return new AlertJSON(
                 this.getUserID(),
                 this.getCurrCode(),
                 Float.parseFloat(this.getCourse()),
