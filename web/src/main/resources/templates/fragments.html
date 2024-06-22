@@ -17,7 +17,7 @@
         <div class="collapse navbar-collapse" id="MainMenuNV">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" th:classappend="${content == '_welcome'} ? 'active':''"aria-current="page" href="/">Miejsce na logo</a>
+                    <a class="nav-link" th:classappend="${content == '_welcome'} ? 'active':''" aria-current="page" href="/">Miejsce na logo</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link disabled" aria-current="page" href="#">Historyczne Kursy walut</a>
@@ -29,7 +29,7 @@
                     <a class="nav-link" th:classappend="${content == '_alertListSQL'} ? 'active':''"aria-current="page" href="/alerts/list/1">Zarządzanie alertami SQL</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link disabled" aria-current="page" href="#">Regulamin</a>
+                    <a class="nav-link"  th:classappend="${content == '_regulamin'} ? 'active':''" aria-current="page" href="/regulamin">Regulamin</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link disabled" aria-current="page" href="#">Kontakt</a>
@@ -44,13 +44,13 @@
                     Logowanie
                 </button>
                 <ul class="dropdown-menu">
-                    <form id="LoginForm" method="post" action="_panel">
+                    <form id="LoginForm" method="post" th:action="@{/}">
                         <div class="dropdown-item">
-                            <label for="login" class="form-label">Adres Email</label>
-                            <input type="text" class="form-control" id="login" name="login">
-                            <label for="haslo" class="form-label">Hasło</label>
-                            <input type="password" class="form-control" id="haslo" name="haslo"><br/>
-                            <div class="text-danger border-light float-end" id="validationsummary"></div>
+                            <label for="username" class="form-label">Adres Email</label>
+                            <input type="text" class="form-control" id="username" name="username">
+                            <label for="password" class="form-label">Hasło</label>
+                            <input type="password" class="form-control" id="password" name="password"><br/>
+<!--                            <div class="text-danger border-light float-end" id="validationsummary"></div>-->
                             <button type="submit" class="btn btn-outline-light" id="LoginSubm">Zaloguj się</button>
                         </div>
                         <div class="dropdown-item">

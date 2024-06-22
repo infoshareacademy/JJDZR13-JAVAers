@@ -41,11 +41,11 @@ public class AlertController {
         return alertService.getAlertById(id);
     }
 
-    @PostMapping("/newalertSQL")
-    public Alert createAlert(@RequestBody AlertDTO alertDTO) {
-        Alert alert = alertDTO.toAlert();
-        return alertService.saveAlert(alert);
-    }
+//    @PostMapping("/newalertSQL")
+//    public Alert createAlert(@RequestBody AlertDTO alertDTO) {
+//        Alert alert = alertDTO.toAlert();
+//        return alertService.saveAlert(alert);
+//    }
 
 
 }

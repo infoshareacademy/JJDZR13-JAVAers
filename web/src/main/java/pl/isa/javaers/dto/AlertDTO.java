@@ -14,10 +14,9 @@ public class AlertDTO {
 
     private UserService userService;
 
-    @Autowired
-    public AlertDTO(UserService userService) {
-        this.userService = userService;
+    public AlertDTO() {
     }
+
     public AlertDTO(String alertID, String userID, String currCode, float course, boolean higherOrLower) {
         this.alertID = alertID;
         this.userID = userID;
@@ -25,8 +24,8 @@ public class AlertDTO {
         this.course = course;
         this.higherOrLower = higherOrLower;
     }
-    public Alert toAlert() {
-        User user = userService.getUserById(Long.getLong(this.getUserID()));
+    public Alert toAlert(User user) {
+//        User user = userService.getUserById(Long.getLong(this.getUserID()));
         return new Alert(user, this.getCurrCode(), this.getCourse(), this.isHigherOrLower());
     }
 

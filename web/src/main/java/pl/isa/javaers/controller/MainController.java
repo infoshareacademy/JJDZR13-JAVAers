@@ -10,6 +10,7 @@ import pl.isa.javaers.configuration.Settings;
 import pl.isa.javaers.dto.AlertDTO;
 import pl.isa.javaers.model.Alert;
 import pl.isa.javaers.model.AlertStr;
+import pl.isa.javaers.model.User;
 import pl.isa.javaers.service.AlertService;
 import pl.isa.javaers.service.UserService;
 
@@ -22,7 +23,6 @@ public class MainController {
     private final AlertService alertService;
     private final UserService userService;
 
-    @Autowired
     public MainController(AlertService alertService, UserService userService) {
         this.alertService = alertService;
         this.userService = userService;
@@ -32,6 +32,11 @@ public class MainController {
     String welcome(Model model) {
         model.addAttribute("content","_welcome");
         return "index";
+    }
+    @GetMapping("/regulamin")
+    String regulamin(Model model) {
+        model.addAttribute("content","_regulamin");
+        return "regulamin";
     }
     @GetMapping("/alerts")
     String listaAlertów(Model model) {
@@ -92,7 +97,8 @@ public class MainController {
     @PostMapping("/newalertSQL")
     String DodanieAlertuSQL(Model model, @ModelAttribute("alertnew") AlertDTO alertDTO) {
         alertDTO.setUserID("1");
-        Alert alert = alertDTO.toAlert();
+        User user = userService.getUserById(Long.parseLong(alertDTO.getUserID()));
+        Alert alert = alertDTO.toAlert(user);
         alertService.saveAlert(alert);
 //        alertStr.setUserID(Settings.user);
 //        AlertJSON alertJSONTmp = alertStr.toAlert();
