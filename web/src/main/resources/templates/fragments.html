@@ -23,10 +23,7 @@
                     <a class="nav-link disabled" aria-current="page" href="#">Historyczne Kursy walut</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:classappend="${content == '_alertsList'} ? 'active':''"aria-current="page" href="/alerts">Zarządzanie alertami</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:classappend="${content == '_alertListSQL'} ? 'active':''"aria-current="page" href="/alerts/list/1">Zarządzanie alertami SQL</a>
+                    <a class="nav-link" th:classappend="${content == '_alertsList'} ? 'active':''"aria-current="page" href="/sandbox/alerts/list">Zarządzanie alertami</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link"  th:classappend="${content == '_regulamin'} ? 'active':''" aria-current="page" href="/regulamin">Regulamin</a>
@@ -36,8 +33,29 @@
                 </li>
             </ul>
         </div>
-        <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
-            <button type="button" class="btn btn-outline-light">Rejestracja</button>
+                 <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+                     <!--             <div class="btn-group" role="group">
+                                     <button type="button" class="btn btn-outline-light dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                         Rejestracja
+                                     </button>
+                                     <ul class="dropdown-menu">
+                                       <form id="RegisterForm" method="post" th:action="@{/register}" th:object="${userReg}">
+                                     <form id="RegisterForm" method="post" th:object="${userReg}">
+                                     <div class="dropdown-item">
+                                         <label for="user-name" class="form-label">Adres Email</label>
+                                         <input type="text" class="form-control" id="user-name" name="user-name" th:field="*{username}">
+                                         <label for="password1" class="form-label">Hasło</label>
+                                         <input type="password" class="form-control" id="password1" name="password1" th:field="*{password1}"><br/>
+                                         <label for="password2" class="form-label">Powtórzone Hasło</label>
+                                         <input type="password" class="form-control" id="password2" name="password2" th:field="*{password2}"><br/>
+                                         <button type="submit" class="btn btn-outline-light" id="RegisterSubm">Zarejestruj się</button>
+                                     </div>
+                                 </form>
+
+                             </ul>
+                         </div>
+                 -->
+                     <a role="button" class="btn btn-outline-light  " href="/register">Rejestracja</a>
 
             <div class="btn-group" role="group">
                 <button type="button" class="btn btn-outline-light dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
@@ -60,6 +78,42 @@
 
                 </ul>
             </div>
+        </div>
+    </div>
+</nav>
+
+<nav th:fragment="navbarpanel" class="navbar sticky-top navbar-expand-md cust-mainmenu">
+    <div class="container-fluid">
+        <!--<a class="navbar-brand" href="#">Navbar</a>-->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#MainMenuNV" aria-controls="MainMenuNV" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="MainMenuNV">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" th:classappend="${content == '_welcome'} ? 'active':''" aria-current="page" href="/panel">Miejsce na logo</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" aria-current="page" href="#">Historyczne Kursy walut</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:classappend="${content == '_alertListSQL'} ? 'active':''"aria-current="page" href="/alerts/list">Zarządzanie alertami</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" aria-current="page" href="#">Moje powiadomienia</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link"  th:classappend="${content == '_regulamin'} ? 'active':''" aria-current="page" href="/regulamin">Regulamin</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" aria-current="page" href="#">Kontakt</a>
+                </li>
+            </ul>
+        </div>
+        <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+            <form th:action="@{/logout}" method="post">
+                <button type="submit" class="btn btn-outline-light">Logout</button>
+            </form>
         </div>
     </div>
 </nav>

@@ -1,6 +1,9 @@
 package pl.isa.javaers.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import pl.isa.javaers.model.User;
 import pl.isa.javaers.repository.UserRepository;
@@ -32,5 +35,27 @@ public class UserService {
     }
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
+    }
+    public String getLoggedInUsername() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.isAuthenticated() && !(authentication.getPrincipal() instanceof String)) {
+            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+            return userDetails.getUsername();
+        }
+        return null;
+    }
+//    public Long getLoggedInUserId() {
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        if (authentication != null && authentication.isAuthenticated() && !(authentication.getPrincipal() instanceof Long)) {
+//            return (Long) authentication.getPrincipal();
+//        }
+//        else return null;
+//    }
+    public User getLoggedInUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.isAuthenticated() && !(authentication.getPrincipal() instanceof User)) {
+            return (User) authentication.getPrincipal();
+        }
+        else return null;
     }
 }

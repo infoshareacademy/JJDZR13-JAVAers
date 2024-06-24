@@ -27,6 +27,14 @@ public class Alert {
     public Alert() {
     }
 
+    public Alert(UUID uuid, User user, String currCode, float course, boolean higherOrLower) {
+        this.alertID = uuid;
+        this.user = user;
+        this.currCode = currCode;
+        this.course = course;
+        this.higherOrLower = higherOrLower;
+    }
+
     public Alert(User user, String currCode, float course, boolean higherOrLower) {
         this.user = user;
         this.currCode = currCode;

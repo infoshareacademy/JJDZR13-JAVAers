@@ -1,14 +1,17 @@
 
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head th:replace="~{fragments::head}"></head>
 <body>
 
-<nav th:replace="~{fragments::navbar}"></nav>
+<nav th:replace="~{fragments::navbarpanel}"></nav>
 
 <header>
     <div class="container">
-        <h1>Witaj gościu!!!</h1>
+        <h1 th:text="#{WhoIsThis}"></h1>
+        <p sec:authorize="isAuthenticated()">
+            Witaj <span sec:authentication="name"></span>
+        </p>
     </div>
 </header>
 <div class="row">

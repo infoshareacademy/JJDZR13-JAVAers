@@ -5,6 +5,8 @@ import pl.isa.javaers.model.Alert;
 import pl.isa.javaers.model.User;
 import pl.isa.javaers.service.UserService;
 
+import java.util.UUID;
+
 public class AlertDTO {
     private String alertID;             //unique alert identifier
     private String userID;              //unique User identifier
@@ -27,6 +29,10 @@ public class AlertDTO {
     public Alert toAlert(User user) {
 //        User user = userService.getUserById(Long.getLong(this.getUserID()));
         return new Alert(user, this.getCurrCode(), this.getCourse(), this.isHigherOrLower());
+    }
+    public Alert toAlert(String alertID, User user) {
+//        User user = userService.getUserById(Long.getLong(this.getUserID()));
+        return new Alert(UUID.fromString(alertID), user, this.getCurrCode(), this.getCourse(), this.isHigherOrLower());
     }
 
     public String getAlertID() {

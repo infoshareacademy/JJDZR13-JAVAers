@@ -36,7 +36,7 @@ public class SecurityConfig {
 
 //    public static void main(String[] args) {
 //
-//        System.out.println(new BCryptPasswordEncoder().encode("adminpass"));
+//        System.out.println(new BCryptPasswordEncoder().encode("userspass"));
 //    }
 
     @Bean
@@ -45,17 +45,20 @@ public class SecurityConfig {
                 .userDetailsService(userDetailsService())
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
-                                .requestMatchers("/register", "/","/css/**","/js/**","/img/**").permitAll()
+                                .requestMatchers("/register", "/","/css/**","/js/**","/img/**"
+                                        ,"/regulamin","/sandbox/**").permitAll()
                                 .anyRequest().authenticated()
                 )
                 .formLogin(formLogin ->
                         formLogin
                                 .loginPage("/")
-                                .defaultSuccessUrl("/regulamin", true)
+                                .defaultSuccessUrl("/panel", true)
                                 .permitAll()
                 )
                 .logout(logout ->
                         logout
+                                .logoutUrl("/logout")
+                                .logoutSuccessUrl("/")
                                 .permitAll()
                 );
         return http.build();

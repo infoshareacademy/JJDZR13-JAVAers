@@ -15,6 +15,7 @@ import pl.isa.javaers.service.AlertService;
 import pl.isa.javaers.service.UserService;
 
 import java.util.List;
+import java.util.UUID;
 
 import static pl.isa.javaers.JAVAers.assetCodes;
 
@@ -38,7 +39,13 @@ public class MainController {
         model.addAttribute("content","_regulamin");
         return "regulamin";
     }
-    @GetMapping("/alerts")
+    @GetMapping("/panel")
+    String panel(Model model) {
+        model.addAttribute("content","_welcome");
+        model.addAttribute("whoIsThis","Witaj WhoAmI");
+        return "panel";
+    }
+    @GetMapping("/sandbox/alerts/list")
     String listaAlertów(Model model) {
         List<AlertJSON> tmpAlertJSONS = Main.alerts.getUserAlerts(Settings.user);
 //        UI.showAlerts(tmpAlertJSONS, Main.user);
@@ -52,22 +59,22 @@ public class MainController {
         model.addAttribute("assetCodes", assetCodes);
         return "alertsList";
     }
-    @PostMapping("/alertsave")
+    @PostMapping("/sandbox/alert/save")
     String ModyfikacjaAlertu(Model model, @ModelAttribute AlertJSON alertJSON) {
-//        alertJSON.setUserID(Settings.user);
+        alertJSON.setUserID(Settings.user);
         Main.alerts.modifyAlert(alertJSON);
         Main.alerts.saveAlerts();
-        return "redirect:/alerts";
+        return "redirect:/sandbox/alerts/list";
     }
-    @PostMapping("/alertdelete")
+    @PostMapping("/sandbox/alert/delete")
     String UsuniecieAlertu(Model model, @RequestParam(value = "delNameID") String delNameID ) {
 //        alert.setUserID(Settings.user);
         System.out.println(delNameID);
         Main.alerts.removeFromAlerts(delNameID);
         Main.alerts.saveAlerts();
-        return "redirect:/alerts";
+        return "redirect:/sandbox/alerts/list";
     }
-    @PostMapping("/newalert")
+    @PostMapping("/sandbox/alert/new")
     String DodanieAlertu(Model model, @ModelAttribute("alertnew") AlertStr alertStr) {
         System.out.println(alertStr.toString());
         alertStr.setUserID(Settings.user);
@@ -76,14 +83,16 @@ public class MainController {
             Main.alerts.addToAlerts(alertJSONTmp);
             Main.alerts.saveAlerts();
         }
-        return "redirect:/alerts";
+        return "redirect:/sandbox/alerts/list";
     }
-    @GetMapping("/alerts/list/{id}")
-    String alertListSql(Model model, @PathVariable String id) {
+    @GetMapping("/alerts/list")
+    String alertListSql(Model model) {
 //    List<Alert> alertListSql(Model model, @PathVariable String id) {
 //        List<Alert> userAlerts = alertService.getUserAlerts(Long.parseLong(id));
-        List<AlertDTO> userAlertsDTO = alertService.getUserAlertsDTO(Long.parseLong(id));
-
+        Long sqlID = userService.getUserByUsername(userService.getLoggedInUsername()).getId();
+//        Long sqlID = userService.getLoggedInUserId();
+//        List<AlertDTO> userAlertsDTO = alertService.getUserAlertsDTO(Long.parseLong(id));
+        List<AlertDTO> userAlertsDTO = alertService.getUserAlertsDTO(sqlID);
         AlertStr alertStr = new AlertStr();
         model.addAttribute("alertnew", alertStr);
 
@@ -94,17 +103,29 @@ public class MainController {
         return "alertsListSQL";
     }
 
-    @PostMapping("/newalertSQL")
-    String DodanieAlertuSQL(Model model, @ModelAttribute("alertnew") AlertDTO alertDTO) {
-        alertDTO.setUserID("1");
-        User user = userService.getUserById(Long.parseLong(alertDTO.getUserID()));
+    @PostMapping("/alert/new")
+    String AddSqlAlert(Model model, @ModelAttribute("alertnew") AlertDTO alertDTO) {
+        User user = userService.getUserByUsername(userService.getLoggedInUsername());
         Alert alert = alertDTO.toAlert(user);
         alertService.saveAlert(alert);
-//        alertStr.setUserID(Settings.user);
-//        AlertJSON alertJSONTmp = alertStr.toAlert();
-//        if(alertJSONTmp != null) {
-//            Main.alerts.addToAlerts(alertJSONTmp);
-//            Main.alerts.saveAlerts();
-        return "redirect:/alerts/list/1";
+        return "redirect:/alerts/list";
     }
+    @PostMapping("/alert/save")
+    String EditSqlAlert(Model model, @ModelAttribute AlertDTO alertDTO) {
+        User user = userService.getUserByUsername(userService.getLoggedInUsername());
+        Alert alert = alertDTO.toAlert(alertDTO.getAlertID(), user);
+        alertService.saveAlert(alert);
+        return "redirect:/alerts/list";
+    }
+    @PostMapping("/alert/delete")
+    String RemoveSqlAlert(Model model, @RequestParam(value = "delNameID") String delNameID ) {
+        alertService.deleteAlert(UUID.fromString(delNameID));
+        return "redirect:/alerts/list";
+    }
+
+//    @GetMapping("/register")
+//    String register(Model model) {
+//        model.addAttribute("content","_regulamin");
+//        return "register";
+//    }
 }
