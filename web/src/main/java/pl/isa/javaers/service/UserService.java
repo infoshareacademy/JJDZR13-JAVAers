@@ -51,11 +51,14 @@ public class UserService {
 //        }
 //        else return null;
 //    }
-    public User getLoggedInUser() {
+    public String getLoggedInUserName() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication != null && authentication.isAuthenticated() && !(authentication.getPrincipal() instanceof User)) {
-            return (User) authentication.getPrincipal();
+        String username = null;
+
+        if (authentication != null && authentication.getPrincipal() instanceof UserDetails) {
+            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+            username = userDetails.getUsername();
         }
-        else return null;
+        return username;
     }
 }

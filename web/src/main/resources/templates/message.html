@@ -1,0 +1,21 @@
+
+<!doctype html>
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head th:replace="~{fragments::head}"></head>
+<body>
+
+<nav th:replace="~{fragments::navbar}"></nav>
+
+<header>
+    <div class="container text-center">
+        <br/><br/>
+        <h1 th:text="${messageTitle}"></h1>
+        <br/>
+        <h3 th:text="${messageContent}"></h3>
+    </div>
+</header>
+
+<footer th:replace="~{fragments::footer}"></footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>

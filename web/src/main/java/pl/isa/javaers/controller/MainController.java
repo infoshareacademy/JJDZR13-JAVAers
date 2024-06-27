@@ -1,6 +1,9 @@
 package pl.isa.javaers.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +17,7 @@ import pl.isa.javaers.model.User;
 import pl.isa.javaers.service.AlertService;
 import pl.isa.javaers.service.UserService;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -39,10 +43,22 @@ public class MainController {
         model.addAttribute("content","_regulamin");
         return "regulamin";
     }
+    @GetMapping("/loginFault")
+    String loginFault(Model model) {
+        return "loginFault";
+    }
+    @GetMapping("/message")
+    String message(Model model, @RequestParam(value = "error", required = false) String error) {
+        if(error.equals("loginError")) { model
+                .addAttribute("messageTitle", "Logowanie nie powiodło się.")
+                .addAttribute("messageContent", "Sprawdź czy CapsLock nie jest wciśnięty i ponów próbę starannie wprowadzając nazwę uzytkownika i hasło");
+        }
+        return "message";
+    }
     @GetMapping("/panel")
     String panel(Model model) {
         model.addAttribute("content","_welcome");
-        model.addAttribute("whoIsThis","Witaj WhoAmI");
+        model.addAttribute("whoIsThis","Hello " + userService.getLoggedInUserName() + ". Witaj w sekcji dla zalogowanych");
         return "panel";
     }
     @GetMapping("/sandbox/alerts/list")
@@ -122,10 +138,4 @@ public class MainController {
         alertService.deleteAlert(UUID.fromString(delNameID));
         return "redirect:/alerts/list";
     }
-
-//    @GetMapping("/register")
-//    String register(Model model) {
-//        model.addAttribute("content","_regulamin");
-//        return "register";
-//    }
 }

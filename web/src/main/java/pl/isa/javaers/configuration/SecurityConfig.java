@@ -46,13 +46,15 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
                                 .requestMatchers("/register", "/","/css/**","/js/**","/img/**"
-                                        ,"/regulamin","/sandbox/**").permitAll()
+                                        ,"/regulamin","/sandbox/**","/message","/loginFault").permitAll()
                                 .anyRequest().authenticated()
                 )
                 .formLogin(formLogin ->
                         formLogin
                                 .loginPage("/")
                                 .defaultSuccessUrl("/panel", true)
+//                                .failureUrl("/loginFault")
+                                .failureUrl("/message?error=loginError")
                                 .permitAll()
                 )
                 .logout(logout ->

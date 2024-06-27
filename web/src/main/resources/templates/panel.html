@@ -8,7 +8,7 @@
 
 <header>
     <div class="container">
-        <h1 th:text="#{WhoIsThis}"></h1>
+        <h1 th:text="${whoIsThis}"></h1>
         <p sec:authorize="isAuthenticated()">
             Witaj <span sec:authentication="name"></span>
         </p>
