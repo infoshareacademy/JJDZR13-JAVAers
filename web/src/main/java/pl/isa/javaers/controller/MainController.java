@@ -40,7 +40,10 @@ public class MainController {
     }
     @GetMapping("/regulamin")
     String regulamin(Model model) {
-        model.addAttribute("content","_regulamin");
+        boolean isLogged = false;
+        if (userService.getLoggedInUserName() != null) isLogged = true;
+        model.addAttribute("content","_regulamin")
+                .addAttribute("isLogged",isLogged);
         return "regulamin";
     }
     @GetMapping("/loginFault")

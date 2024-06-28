@@ -52,7 +52,7 @@ public class SecurityConfig {
                 .formLogin(formLogin ->
                         formLogin
                                 .loginPage("/")
-                                .defaultSuccessUrl("/panel", true)
+                                .defaultSuccessUrl("/alerts/list", true)
 //                                .failureUrl("/loginFault")
                                 .failureUrl("/message?error=loginError")
                                 .permitAll()
