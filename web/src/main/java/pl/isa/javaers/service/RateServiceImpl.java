@@ -34,7 +34,7 @@ public class RateServiceImpl implements RateService {
             ObjectMapper objectMapper = new ObjectMapper();
             KursNBP kursNBP = objectMapper.readValue(data, KursNBP.class);
             tmpRates = kursNBP.getRates().stream().toList();
-            rateName = kursNBP.getCurrency();
+            rateName = kursNBP.getCurrency().toUpperCase();
             return tmpRates;
         } catch (IOException e) {
             throw new RuntimeException(e);

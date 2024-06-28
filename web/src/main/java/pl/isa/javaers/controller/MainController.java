@@ -9,7 +9,9 @@ import pl.isa.javaers.Alert;
 import pl.isa.javaers.Main;
 import pl.isa.javaers.configuration.Settings;
 import pl.isa.javaers.dto.CurrentTableDTO;
+import pl.isa.javaers.dto.HistoryRateDTO;
 import pl.isa.javaers.model.CurrRates;
+import pl.isa.javaers.model.Rate;
 import pl.isa.javaers.model.UserRateHistoryData;
 import pl.isa.javaers.rest.RestTemplateService;
 import pl.isa.javaers.rest.RestTemplateServiceImpl;
@@ -77,5 +79,19 @@ public class MainController {
         rateService.createData(userRateHistoryData);
         rateService.filterRatesByDate(userRateHistoryData);
         return "redirect:/rates";
+    }
+
+    @GetMapping("/rates-history")
+    String getHistoryRatesREST(Model model) {
+
+        HistoryRateDTO historyRateDTO = restTemplateService.getHistoryRateTable();
+        String historyDetails = "Kurs " + historyRateDTO.getCurrency();
+        List<Rate> historyRates;
+        historyRates = historyRateDTO.getRates().stream().toList();
+
+        model.addAttribute("content", "_rates-history-content")
+                .addAttribute("tableDetails", historyDetails)
+                .addAttribute("historyRates", historyRates);
+        return "rate-history-rest";
     }
 }
