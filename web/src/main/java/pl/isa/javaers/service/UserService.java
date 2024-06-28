@@ -44,21 +44,4 @@ public class UserService {
         }
         return null;
     }
-//    public Long getLoggedInUserId() {
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        if (authentication != null && authentication.isAuthenticated() && !(authentication.getPrincipal() instanceof Long)) {
-//            return (Long) authentication.getPrincipal();
-//        }
-//        else return null;
-//    }
-    public String getLoggedInUserName() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = null;
-
-        if (authentication != null && authentication.getPrincipal() instanceof UserDetails) {
-            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-            username = userDetails.getUsername();
-        }
-        return username;
-    }
 }

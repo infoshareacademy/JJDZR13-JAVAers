@@ -66,7 +66,7 @@ public class MainController {
     @GetMapping("/regulamin")
     String regulamin(Model model) {
         boolean isLogged = false;
-        if (userService.getLoggedInUserName() != null) isLogged = true;
+        if (userService.getLoggedInUsername() != null) isLogged = true;
         model.addAttribute("content","_regulamin")
                 .addAttribute("isLogged",isLogged);
         return "regulamin";
@@ -86,7 +86,7 @@ public class MainController {
     @GetMapping("/panel")
     String panel(Model model) {
         model.addAttribute("content","_welcome");
-        model.addAttribute("whoIsThis","Hello " + userService.getLoggedInUserName() + ". Witaj w sekcji dla zalogowanych");
+        model.addAttribute("whoIsThis","Hello " + userService.getLoggedInUsername() + ". Witaj w sekcji dla zalogowanych");
         return "panel";
     }
     @GetMapping("/sandbox/alerts/list")
