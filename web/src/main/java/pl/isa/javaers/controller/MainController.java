@@ -1,5 +1,6 @@
 package pl.isa.javaers.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,7 +36,7 @@ public class MainController {
     private final RestTemplateService restTemplateService;
     private final AlertService alertService;
     private final UserService userService;
-
+@Autowired
     public MainController(RateServiceImpl rateService, RestTemplateServiceImpl restTemplateServiceImpl, AlertService alertService, UserService userService) {
         this.rateService = rateService;
         this.restTemplateService = restTemplateServiceImpl;

@@ -14,7 +14,8 @@ import java.util.List;
 import static pl.isa.javaers.Main.alerts;
 
 @SpringBootApplication
-@ComponentScan(basePackages = {"pl.isa.javaers.service", "pl.isa.javaers.repository", "pl.isa.javaers.controller","pl.isa.javaers.configuration","pl.isa.javaers.dto","pl.isa.javaers.model"})
+//@ComponentScan(basePackages = {"pl.isa.javaers.service", "pl.isa.javaers.repository", "pl.isa.javaers.controller","pl.isa.javaers.configuration","pl.isa.javaers.dto","pl.isa.javaers.model"})
+@ComponentScan(basePackages = {"pl.isa.javaers"})
 public class JAVAers {
 
 	public static List<String> assetCodes = null;
