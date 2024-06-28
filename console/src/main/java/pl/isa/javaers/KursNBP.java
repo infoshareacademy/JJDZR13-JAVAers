@@ -1,5 +1,6 @@
 package pl.isa.javaers;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.util.List;
@@ -10,6 +11,7 @@ public class KursNBP {
 //            "code": "BGN",
 //            "rates": [
 
+    @JsonIgnore
     private String table;
     private String currency;
     private String code;

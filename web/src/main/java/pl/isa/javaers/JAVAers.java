@@ -4,6 +4,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 import pl.isa.javaers.service.UserService;
+import org.springframework.web.client.RestTemplate;
+import pl.isa.javaers.service.CurrRatesList;
+import pl.isa.javaers.service.RateServiceImpl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +30,8 @@ public class JAVAers {
 		alerts.loadAlerts();
 		pl.isa.javaers.service.Assets.loadAssets();
 		assetCodes = pl.isa.javaers.service.Assets.listCodes();
+
+
 	}
 
 }

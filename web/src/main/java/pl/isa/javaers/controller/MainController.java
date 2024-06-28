@@ -6,10 +6,21 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import pl.isa.javaers.Alert;
 import org.springframework.web.bind.annotation.*;
 import pl.isa.javaers.AlertJSON;
 import pl.isa.javaers.Main;
 import pl.isa.javaers.configuration.Settings;
+import pl.isa.javaers.dto.CurrentTableDTO;
+import pl.isa.javaers.model.CurrRates;
+import pl.isa.javaers.model.UserRateHistoryData;
+import pl.isa.javaers.rest.RestTemplateService;
+import pl.isa.javaers.rest.RestTemplateServiceImpl;
+import pl.isa.javaers.service.RateService;
+import pl.isa.javaers.service.RateServiceImpl;
 import pl.isa.javaers.dto.AlertDTO;
 import pl.isa.javaers.model.Alert;
 import pl.isa.javaers.model.AlertStr;
@@ -23,19 +34,39 @@ import java.util.UUID;
 
 import static pl.isa.javaers.JAVAers.assetCodes;
 
+
 @Controller
 public class MainController {
+
+    private final RateService rateService;
+    private final RestTemplateService restTemplateService;
     private final AlertService alertService;
     private final UserService userService;
 
-    public MainController(AlertService alertService, UserService userService) {
+    public MainController(RateServiceImpl rateService, RestTemplateServiceImpl restTemplateServiceImpl, AlertService alertService, UserService userService) {
+        this.rateService = rateService;
+        this.restTemplateService = restTemplateServiceImpl;
         this.alertService = alertService;
         this.userService = userService;
     }
 
+
+
+
     @GetMapping("/")
     String welcome(Model model) {
-        model.addAttribute("content","_welcome");
+//        RestTemplateServiceImpl restTemplateServiceImpl = new RestTemplateServiceImpl(new RestTemplate());
+
+        CurrentTableDTO currentTableDTO = restTemplateService.getCurrentNbpTable();
+        String tableDetails = "nr " + currentTableDTO.getNo() + " z dnia " + currentTableDTO.getEffectiveDate();
+        List<CurrRates> currNbpTable;
+        currNbpTable = currentTableDTO.getRates().stream()
+                .filter(currRates -> currRates.getCode().matches("^(EUR|USD|HUF|CHF|GBP|JPY|CZK|DKK|NOK|SEK|RON|BGN|TRY|CNY)$"))
+                .toList();
+
+        model.addAttribute("content", "_welcome")
+                .addAttribute("courses", currNbpTable)
+                .addAttribute("tableDetails", tableDetails);
         return "index";
     }
     @GetMapping("/regulamin")
@@ -77,6 +108,29 @@ public class MainController {
 //        List<String> stringList = Assets.listCodes();
         model.addAttribute("assetCodes", assetCodes);
         return "alertsList";
+    }
+
+    @GetMapping("/rates")
+    String listaKursówWalut(Model model) {
+        model.addAttribute("content", "_rates")
+                .addAttribute("tmpRates", rateService.getFilteredRateLIst())
+                .addAttribute("currencyName", rateService.getRateName());
+        return "rate-history";
+    }
+
+    @GetMapping("/rates-form")
+    String ratesForm(Model model) {
+        model.addAttribute("content", "_rates-form")
+                .addAttribute("userRateHistoryData", new UserRateHistoryData());
+        return "rateHistoryForm";
+    }
+
+    @PostMapping(value = "/rates-form")
+    String getRatesParamForm(@ModelAttribute UserRateHistoryData userRateHistoryData, Model model) {
+        model.addAttribute("content", "_rates-form");
+        rateService.createData(userRateHistoryData);
+        rateService.filterRatesByDate(userRateHistoryData);
+        return "redirect:/rates";
     }
     @PostMapping("/sandbox/alert/save")
     String ModyfikacjaAlertu(Model model, @ModelAttribute AlertJSON alertJSON) {

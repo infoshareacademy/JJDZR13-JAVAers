@@ -5,6 +5,7 @@
     --color-2: #720455;
     --color-3: #910A67;
 }
+
 .cust-mainmenu {
     background-color: var(--color-1);
     height: auto;
@@ -19,9 +20,6 @@
 .nav-link:hover {
     text-decoration: blink !important;
     font-weight: bold !important;
-}
-.logo {
-    height:40px; border-radius: 5px; margin-top: -10px; margin-bottom: -10px;
 }
 .dropdown-menu {
     --bs-dropdown-bg: var(--color-2);
