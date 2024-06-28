@@ -1,7 +1,7 @@
 package pl.isa.javaers.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import pl.isa.javaers.Alert;
+import pl.isa.javaers.model.Alert;
 import pl.isa.javaers.dto.CurrentTableDTO;
 import pl.isa.javaers.model.CurrRates;
 
