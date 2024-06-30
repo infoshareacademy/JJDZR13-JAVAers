@@ -1,0 +1,8 @@
+spring:
+  thymeleaf:
+    check-template-location: true
+    cache: false
+    prefix: classpath:/templates/
+
+
+server.port: 8080

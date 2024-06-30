@@ -1,0 +1,76 @@
+
+<!doctype html>
+<html lang="en">
+<head th:replace="~{fragments::head}"></head>
+<body>
+
+
+<!--<nav th:replace="~{fragments::navbar}"></nav>-->
+<header th:if="${!isLogged}">
+    <nav th:replace="~{fragments::navbar}"></nav>
+</header>
+<header th:if="${isLogged}">
+    <nav th:replace="~{fragments::navbarpanel}"></nav>
+</header>
+
+
+<section>
+    <div class="container">
+        <br/>
+        <h3>Regulamin Serwisu "Javaers" do Monitorowania Kursów Walut</h3>
+        <ol>
+            <li><h6>Darmowe Korzystanie</h6>
+                <ul>
+                    <li>Korzystanie z serwisu "Javaers" jest całkowicie darmowe.</li>
+                </ul>
+            </li>
+            <li><h6>Rejestracja Konta</h6>
+                <ul>
+                    <li>Aby uzyskać pełny dostęp do funkcjonalności serwisu, użytkownik musi założyć konto.</li>
+                    <li>Rejestracja konta wymaga podania unikalnego loginu i hasła. Nie są wymagane żadne dane osobowe.</li>
+                </ul>
+            </li>
+            <li><h6>Bezpieczeństwo Konta</h6>
+                <ul>
+                    <li>Użytkownik jest odpowiedzialny za utrzymanie poufności swojego loginu i hasła.</li>
+                    <li>Serwis nie ponosi odpowiedzialności za nieautoryzowane użycie konta.</li>
+                </ul>
+            </li>
+            <li><h6>Zakres Usług</h6>
+                <ul>
+                    <li>Serwis oferuje aktualne informacje na temat kursów walut.</li>
+                    <li>Dodatkowe funkcje, takie jak alerty i personalizowane ustawienia, są dostępne tylko dla zarejestrowanych użytkowników.</li>
+                </ul>
+            </li>
+            <li><h6>Dane i Prywatność</h6>
+                <ul>
+                    <li>Serwis nie gromadzi żadnych danych osobowych.</li>
+                    <li>Login i hasło są jedynymi wymaganymi informacjami do korzystania z pełnej funkcjonalności serwisu.</li>
+                </ul>
+            </li>
+            <li><h6>Ograniczenia Odpowiedzialności</h6>
+                <ul>
+                    <li>Serwis "Javaers" dokłada wszelkich starań, aby dostarczane informacje były dokładne i aktualne, jednak nie ponosi odpowiedzialności za ewentualne błędy lub opóźnienia w dostarczaniu informacji o kursach walut.</li>
+                </ul>
+            </li>
+            <li><h6>Prawa Autorskie</h6>
+                <ul>
+                    <li>Wszelkie prawa do materiałów dostępnych w serwisie są zastrzeżone.</li>
+                    <li>Kopiowanie, modyfikowanie lub rozpowszechnianie materiałów bez zgody właściciela jest zabronione.</li>
+                </ul>
+            </li>
+            <li><h6>Zmiany w Regulaminie</h6>
+                <ul>
+                    <li>Serwis zastrzega sobie prawo do wprowadzania zmian w regulaminie.</li>
+                    <li>Użytkownicy zostaną poinformowani o wszelkich zmianach drogą elektroniczną lub poprzez ogłoszenie na stronie głównej serwisu.</li>
+                </ul>
+            </li>
+        </ol>
+        <p>Korzystanie z serwisu oznacza akceptację powyższych warunków.</p>
+    </div>
+</section>
+
+<footer th:replace="~{fragments::footer}"></footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>

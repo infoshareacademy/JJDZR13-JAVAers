@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="~{fragments::head}"></head>
+<body>
+
+<nav th:replace="~{fragments::navbar}"></nav>
+
+
+<header>
+    <div class="container">
+        <h1>Historia kursów walut</h1>
+    </div>
+</header>
+<div class="row">
+    <div class="col-md-6 text-center" style="background-color: #3d0472; color:white">Wyświetl kurs waluty w podanym
+        zakresie czasu
+    </div>
+</div>
+<div th:fragment="content" class="container">
+    <div>
+        <div class="card index-card mt-5">
+            <div class="card-body">
+                <p>W formularzu poniżej podaj dane</p>
+            </div>
+        </div>
+        <form th:object="${userRateHistoryData}" th:action="@{/rates-form}" method="post">
+<!--            th:action="@{/saveUserData}"   th:object="${userRateHistoryData}"   -->
+            <!--            <div class="override-specify-label">-->
+            <!--                <label th:for="currency_code_input">Wybierz walutę</label>-->
+            <!--                <input type="text" class="form-control" id="currCode" th:field="*{code}">-->
+            <!--            </div>-->
+            <div class="snippet-container">
+                <label th:for="currency_code_input">Wybierz walutę</label>
+                <select id="currency_input_id" th:field="*{userCurrencyCode}">
+                    <option th:each="userCurrencyOpt : ${T(pl.isa.javaers.model.RateCodesEnum).values()}"
+                            th:value="${userCurrencyOpt}" name="userCurrencyCode" th:text="${userCurrencyOpt.value}"></option>
+                </select></div>
+            <div class="override-specify-label">
+                <label th:for="start_date_input">Data początkowa</label>
+                <input type="date" name="startDate" class="form-control" id="startDate" th:field="*{startDate}">
+            </div>
+            <div class="override-specify-label">
+                <label th:for="end_date_input">Data końcowa</label>
+                <input type="date" name="endDate" class="form-control" id="endDate" th:field="*{endDate}">
+            </div>
+
+
+            <button type="submit" class="btn btn-primary">pokaz historie</button>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>
