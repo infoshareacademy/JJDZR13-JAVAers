@@ -15,14 +15,12 @@ import pl.isa.javaers.model.CurrRates;
 import pl.isa.javaers.model.UserRateHistoryData;
 import pl.isa.javaers.rest.RestTemplateService;
 import pl.isa.javaers.rest.RestTemplateServiceImpl;
-import pl.isa.javaers.service.RateService;
-import pl.isa.javaers.service.RateServiceImpl;
+import pl.isa.javaers.service.*;
 import pl.isa.javaers.dto.AlertDTO;
 import pl.isa.javaers.model.Alert;
 import pl.isa.javaers.model.AlertStr;
 import pl.isa.javaers.model.User;
-import pl.isa.javaers.service.AlertService;
-import pl.isa.javaers.service.UserService;
+
 import java.util.List;
 import java.util.UUID;
 
@@ -36,6 +34,7 @@ public class MainController {
     private final RestTemplateService restTemplateService;
     private final AlertService alertService;
     private final UserService userService;
+
 @Autowired
     public MainController(RateServiceImpl rateService, RestTemplateServiceImpl restTemplateServiceImpl, AlertService alertService, UserService userService) {
         this.rateService = rateService;
@@ -43,9 +42,6 @@ public class MainController {
         this.alertService = alertService;
         this.userService = userService;
     }
-
-
-
 
     @GetMapping("/")
     String welcome(Model model) {
@@ -85,22 +81,19 @@ public class MainController {
     }
     @GetMapping("/panel")
     String panel(Model model) {
-        model.addAttribute("content","_welcome");
-        model.addAttribute("whoIsThis","Hello " + userService.getLoggedInUsername() + ". Witaj w sekcji dla zalogowanych");
+        model.addAttribute("content","_welcome")
+        .addAttribute("whoIsThis","Hello " + userService.getLoggedInUsername() + ". Witaj w sekcji dla zalogowanych");
         return "panel";
     }
     @GetMapping("/sandbox/alerts/list")
     String listaAlertów(Model model) {
         List<AlertJSON> tmpAlertJSONS = Main.alerts.getUserAlerts(Settings.user);
-//        UI.showAlerts(tmpAlertJSONS, Main.user);
 
         AlertStr alertStr = new AlertStr();
-        model.addAttribute("alertnew", alertStr);
-
-        model.addAttribute("content", "_alertsList");
-        model.addAttribute("alerts", tmpAlertJSONS);
-//        List<String> stringList = Assets.listCodes();
-        model.addAttribute("assetCodes", assetCodes);
+        model.addAttribute("alertnew", alertStr)
+        .addAttribute("content", "_alertsList")
+        .addAttribute("alerts", tmpAlertJSONS)
+        .addAttribute("assetCodes", assetCodes);
         return "alertsList";
     }
 
@@ -110,6 +103,19 @@ public class MainController {
                 .addAttribute("tmpRates", rateService.getFilteredRateLIst())
                 .addAttribute("currencyName", rateService.getRateName());
         return "rate-history";
+    }
+    @GetMapping("/notifications")
+    String listNotifications(Model model) {
+    StringBuilder headerMessage = new StringBuilder(userService.getLoggedInUsername() + ", niestety obowiązujące dziś kursy walut w NBP nie spełniły żadnego ze zdefiniowanych alertów");
+    UserNotificationsService userNotificationsService = new UserNotificationsService(userService, alertService, restTemplateService);
+    if(userNotificationsService.fillList() > 0) {
+        headerMessage = new StringBuilder(userService.getLoggedInUsername() + ", oto Twoje dzisiejsze powiadomienia:");
+        model.addAttribute("notifications", userNotificationsService.getUserNotifications());
+    }
+    model.addAttribute("content", "_notifications")
+        .addAttribute("headerMessage",headerMessage);
+
+    return "notifications";
     }
 
     @GetMapping("/rates-form")
@@ -154,19 +160,13 @@ public class MainController {
     }
     @GetMapping("/alerts/list")
     String alertListSql(Model model) {
-//    List<Alert> alertListSql(Model model, @PathVariable String id) {
-//        List<Alert> userAlerts = alertService.getUserAlerts(Long.parseLong(id));
         Long sqlID = userService.getUserByUsername(userService.getLoggedInUsername()).getId();
-//        Long sqlID = userService.getLoggedInUserId();
-//        List<AlertDTO> userAlertsDTO = alertService.getUserAlertsDTO(Long.parseLong(id));
         List<AlertDTO> userAlertsDTO = alertService.getUserAlertsDTO(sqlID);
         AlertStr alertStr = new AlertStr();
-        model.addAttribute("alertnew", alertStr);
-
-        model.addAttribute("content", "_alertsListSQL");
-        model.addAttribute("alerts", userAlertsDTO);
-//        List<String> stringList = Assets.listCodes();
-        model.addAttribute("assetCodes", assetCodes);
+        model.addAttribute("alertnew", alertStr)
+        .addAttribute("content", "_alertsListSQL")
+        .addAttribute("alerts", userAlertsDTO)
+        .addAttribute("assetCodes", assetCodes);
         return "alertsListSQL";
     }
 

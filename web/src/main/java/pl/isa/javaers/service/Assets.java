@@ -17,6 +17,7 @@ public class Assets {
 
 //        assets.put("PLN", new Asset("PLN","Polski Złoty", 1f));
         assets.put("THB", new Asset("THB", "bat (Tajlandia)", 0.1096f));
+        assets.put("USD", new Asset("USD","Dolar amerykański", 4.09f));
         assets.put("AUD", new Asset("AUD","Dolar Australia", 2.678f));
         assets.put("HKD", new Asset("HKD", "dolar Hongkongu", 0.5163f));
         assets.put("CAD", new Asset("CAD","Dolar kanadyjski", 2.941f));
