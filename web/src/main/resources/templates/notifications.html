@@ -13,12 +13,12 @@
     </div>
 </header>
 
-<section>
+<section th:classappend="${notifications.size() == 0} ? invisible : ''">
     <div class="row mt-4">
         <h5>Poniższa lista to zestawienie warunków zdefiniowanych w panelu zarządzania alertami które zostały spełnione dla obowiązujących dziś kursów NBP.</h5>
     </div>
     <div class="row mt-2">
-        <div class="col-md-1 text-center" style="background-color: white; color:white; outline: 1px solid white">&nbsp;</div>
+        <div class="col-md-1 text-center invisible" >&nbsp;</div>
         <div class="col-md-1 text-center" style="background-color: #720455; color:white; outline: 1px solid white">Lp</div>
         <div class="col-md-3 text-center" style="background-color: #720455; color:white; outline: 1px solid white">kod waluty</div>
         <div class="col-md-2 text-center" style="background-color: #720455; color:white; outline: 1px solid white">relacja 〈〉 </div>

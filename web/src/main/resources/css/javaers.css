@@ -35,3 +35,6 @@
 footer>div {padding-left: 3em; padding-top: 0.3em; background-color: var(--color-1); color: white; height: 2em;}
 
 .row {padding-left: 3em; padding-right: 3em;}
+
+.table-head1 {background-color: #720455; color:white; outline: 1px solid white}
+.invisible {visibility: hidden}

@@ -45,8 +45,6 @@ public class MainController {
 
     @GetMapping("/")
     String welcome(Model model) {
-//        RestTemplateServiceImpl restTemplateServiceImpl = new RestTemplateServiceImpl(new RestTemplate());
-
         CurrentTableDTO currentTableDTO = restTemplateService.getCurrentNbpTable();
         String tableDetails = "nr " + currentTableDTO.getNo() + " z dnia " + currentTableDTO.getEffectiveDate();
         List<CurrRates> currNbpTable;
@@ -81,8 +79,17 @@ public class MainController {
     }
     @GetMapping("/panel")
     String panel(Model model) {
-        model.addAttribute("content","_welcome")
-        .addAttribute("whoIsThis","Hello " + userService.getLoggedInUsername() + ". Witaj w sekcji dla zalogowanych");
+        CurrentTableDTO currentTableDTO = restTemplateService.getCurrentNbpTable();
+        String tableDetails = "nr " + currentTableDTO.getNo() + " z dnia " + currentTableDTO.getEffectiveDate();
+        List<CurrRates> currNbpTable;
+        currNbpTable = currentTableDTO.getRates().stream()
+//                .filter(currRates -> currRates.getCode().matches("^(EUR|USD|HUF|CHF|GBP|JPY|CZK|DKK|NOK|SEK|RON|BGN|TRY|CNY)$"))
+                .toList();
+
+        model.addAttribute("content", "_welcome")
+            .addAttribute("courses", currNbpTable)
+            .addAttribute("tableDetails", tableDetails)
+            .addAttribute("whoIsThis","Hello " + userService.getLoggedInUsername() + ". Witaj w sekcji dla zalogowanych");
         return "panel";
     }
     @GetMapping("/sandbox/alerts/list")
@@ -110,10 +117,10 @@ public class MainController {
     UserNotificationsService userNotificationsService = new UserNotificationsService(userService, alertService, restTemplateService);
     if(userNotificationsService.fillList() > 0) {
         headerMessage = new StringBuilder(userService.getLoggedInUsername() + ", oto Twoje dzisiejsze powiadomienia:");
-        model.addAttribute("notifications", userNotificationsService.getUserNotifications());
     }
     model.addAttribute("content", "_notifications")
-        .addAttribute("headerMessage",headerMessage);
+        .addAttribute("headerMessage",headerMessage)
+        .addAttribute("notifications", userNotificationsService.getUserNotifications());
 
     return "notifications";
     }
