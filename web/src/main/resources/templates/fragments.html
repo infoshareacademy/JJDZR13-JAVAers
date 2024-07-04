@@ -17,7 +17,7 @@
         <div class="collapse navbar-collapse" id="MainMenuNV">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" th:classappend="${content == '_welcome'} ? 'active':''"aria-current="page" href="/"><img src="img/logo.png" class="logo"></a>
+                    <a class="nav-link" th:classappend="${content == '_welcome'} ? 'active':''"aria-current="page" href="/"><img src="/img/logo.png" class="logo"></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" th:classappend="${content == '_rates-form'} ? 'active': ''"aria-current="page" href="/rates-form">Historyczne Kursy walut</a>
@@ -67,7 +67,7 @@
         <div class="collapse navbar-collapse" id="MainMenuNV">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" th:classappend="${content == '_welcome'} ? 'active':''" aria-current="page" href="/panel">Miejsce na logo</a>
+                    <a class="nav-link" th:classappend="${content == '_welcome'} ? 'active':''" aria-current="page" href="/panel"><img src="/img/logo.png" class="logo"></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link disabled" aria-current="page" href="#">Historyczne Kursy walut</a>
@@ -76,10 +76,10 @@
                     <a class="nav-link" th:classappend="${content == '_alertListSQL'} ? 'active':''"aria-current="page" href="/alerts/list">Zarządzanie alertami</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link disabled" aria-current="page" href="#">Moje powiadomienia</a>
+                    <a class="nav-link" th:classappend="${content == '_notifications'} ? 'active':''"  aria-current="page" href="/notifications">Moje powiadomienia</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link"  th:classappend="${content == '_regulamin'} ? 'active':''" aria-current="page" href="/regulamin">Regulamin</a>
+                    <a class="nav-link" th:classappend="${content == '_regulamin'} ? 'active':''" aria-current="page" href="/regulamin">Regulamin</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link disabled" aria-current="page" href="#">Kontakt</a>
